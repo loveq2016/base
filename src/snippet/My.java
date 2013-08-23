@@ -4,7 +4,7 @@ public class My {
 
 	
 	public void getMy() {
-		System.out.println("wo lai  l ");
+		System.out.println("wo ai ");
 		return ;
 	}
 } 
