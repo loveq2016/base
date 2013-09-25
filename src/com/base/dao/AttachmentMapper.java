@@ -1,0 +1,1 @@
+package  com.base.dao;import com.base.model.Attachment;import com.base.model.AttachmentExample;import com.base.dao.BaseDao;public interface AttachmentMapper extends BaseDao<Attachment, AttachmentExample> {}

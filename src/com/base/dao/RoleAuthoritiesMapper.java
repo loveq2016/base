@@ -1,0 +1,1 @@
+package  com.base.dao;import com.base.model.RoleAuthorities;import com.base.model.RoleAuthoritiesExample;import com.base.dao.BaseDao;public interface RoleAuthoritiesMapper extends BaseDao<RoleAuthorities, RoleAuthoritiesExample> {}

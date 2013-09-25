@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.dao.ResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.base.model.Resources" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="retention" property="retention" jdbcType="VARCHAR" />
+    <result column="ext" property="ext" jdbcType="VARCHAR" />
+  <result column="temporary" property="temporary" jdbcType="VARCHAR" /> <result column="provisional" property="provisional" jdbcType="INTEGER" /></resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, link_url, description, parent_id, sequence, type, creator, creation_time, 
+    retention, ext
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.base.model.ResourcesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <choose>		<when test="column != null"> ${column} 		</when><otherwise><include refid="Base_Column_List" /></otherwise>	</choose>
+    from  tb_resources
+     ${join}<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    	<if test="groupBy != null"> group by ${groupBy}    </if><if test="having != null"> having ${having}    </if><if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_resources
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_resources
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.base.model.ResourcesExample" >
+    delete from tb_resources
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.base.model.Resources" >
+    insert into tb_resources (id, name, link_url, 
+      description, parent_id, sequence, 
+      type, creator, creation_time, 
+      retention, ext)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{retention,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.base.model.Resources" useGeneratedKeys="true" keyProperty="id">
+    insert into tb_resources
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="linkUrl != null" >
+        link_url,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="retention != null" >
+        retention,
+      </if>
+      <if test="ext != null" >
+        ext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retention != null" >
+        #{retention,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null" >
+        #{ext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.base.model.ResourcesExample" resultType="java.lang.Integer" >
+    select count(*) from  tb_resources
+    ${join}<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_resources
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkUrl != null" >
+        link_url = #{record.linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sequence != null" >
+        sequence = #{record.sequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationTime != null" >
+        creation_time = #{record.creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.retention != null" >
+        retention = #{record.retention,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext != null" >
+        ext = #{record.ext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_resources
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      link_url = #{record.linkUrl,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      sequence = #{record.sequence,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=INTEGER},
+      creation_time = #{record.creationTime,jdbcType=TIMESTAMP},
+      retention = #{record.retention,jdbcType=VARCHAR},
+      ext = #{record.ext,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.base.model.Resources" >
+    update tb_resources
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retention != null" >
+        retention = #{retention,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null" >
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.base.model.Resources" >
+    update tb_resources
+    set name = #{name,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      sequence = #{sequence,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      retention = #{retention,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<select id="selectByModel" resultMap="BaseResultMap" parameterType="com.base.model.Resources"> select   <include refid="Base_Column_List" />  from tb_resources
+      where 1 = 1 
+      <if test="name != null"> and 
+        name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="linkUrl != null"> and 
+        link_url = #{linkUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null"> and 
+        description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="parentId != null"> and 
+        parent_id = #{parentId,jdbcType=INTEGER}
+      </if>
+      <if test="sequence != null"> and 
+        sequence = #{sequence,jdbcType=INTEGER}
+      </if>
+      <if test="type != null"> and 
+        type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="creator != null"> and 
+        creator = #{creator,jdbcType=INTEGER}
+      </if>
+      <if test="creationTime != null"> and 
+        creation_time = #{creationTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="retention != null"> and 
+        retention = #{retention,jdbcType=VARCHAR}
+      </if>
+      <if test="ext != null"> and 
+        ext = #{ext,jdbcType=VARCHAR}
+      </if></select><select id="distinct" resultMap="BaseResultMap" parameterType="com.base.model.ResourcesExample"> select  distinct ${column}  from  tb_resources
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="sum" resultType="java.lang.String" parameterType="com.base.model.ResourcesExample"> select sum(${column}) as ${column} from  tb_resources
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="min" resultType="java.lang.String" parameterType="com.base.model.ResourcesExample"> select  min(${column}) as ${column} from  tb_resources
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="max" resultType="java.lang.String" parameterType="com.base.model.ResourcesExample"> select  max(${column}) as ${column} from  tb_resources
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="avg" resultType="java.lang.String" parameterType="com.base.model.ResourcesExample"> select  avg(${column}) as ${column} from  tb_resources
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><sql id="Base_Column_List_Map"> 
+    id, name, link_url as  linkUrl, description, parent_id as  parentId, sequence, type, creator, creation_time as  creationTime, 
+    retention, ext
+  </sql>  <select id="selectByExampleForMap" resultType="map" 	parameterType="com.base.model.ResourcesExample"> 	select 	<if test="distinct"> distinct    </if> 	<choose> 		<when test="column != null"> ${column} 		</when> 		<otherwise> 			<include refid="Base_Column_List_Map" /> 		</otherwise> 	</choose> 	from  tb_resources
+     ${join} 	<if test="_parameter != null"> 		<include refid="Example_Where_Clause" /> 	</if> 	<if test="groupBy != null"> group by ${groupBy}    </if> <if test="having != null"> having ${having}    </if><if test="orderByClause != null"> order by ${orderByClause}    </if> </select><resultMap id="BaseResultMapJoin" type="com.base.model.Resources" >
+    <id column="resources_id" property="id" jdbcType="INTEGER" />
+    <result column="resources_name" property="name" jdbcType="VARCHAR" />
+    <result column="resources_link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="resources_description" property="description" jdbcType="VARCHAR" />
+    <result column="resources_parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="resources_sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="resources_type" property="type" jdbcType="INTEGER" />
+    <result column="resources_creator" property="creator" jdbcType="INTEGER" />
+    <result column="resources_creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="resources_retention" property="retention" jdbcType="VARCHAR" />
+    <result column="resources_ext" property="ext" jdbcType="VARCHAR" />
+  </resultMap><insert id="batchInsert" parameterType="java.util.List" >insert into tb_resources (id, name, link_url, 
+      description, parent_id, sequence, 
+      type, creator, creation_time, 
+      retention, ext)
+    values<foreach collection="list" item="item" index="index"  separator=","> (#{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.linkUrl,jdbcType=VARCHAR}, 
+      #{item.description,jdbcType=VARCHAR}, #{item.parentId,jdbcType=INTEGER}, #{item.sequence,jdbcType=INTEGER}, 
+      #{item.type,jdbcType=INTEGER}, #{item.creator,jdbcType=INTEGER}, #{item.creationTime,jdbcType=TIMESTAMP}, 
+      #{item.retention,jdbcType=VARCHAR}, #{item.ext,jdbcType=VARCHAR})
+  </foreach></insert></mapper>

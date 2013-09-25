@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.base.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="INTEGER" />
+    <result column="expired_date" property="expiredDate" jdbcType="TIMESTAMP" />
+    <result column="credentials_expired" property="credentialsExpired" jdbcType="VARCHAR" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="org" property="org" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="ssn" property="ssn" jdbcType="VARCHAR" />
+    <result column="mail" property="mail" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="notify_mode" property="notifyMode" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="retention" property="retention" jdbcType="VARCHAR" />
+    <result column="ext" property="ext" jdbcType="VARCHAR" />
+  <result column="temporary" property="temporary" jdbcType="VARCHAR" /> <result column="provisional" property="provisional" jdbcType="INTEGER" /></resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_name, password, country, expired_date, credentials_expired, full_name, org, 
+    gender, age, address, phone, mobile, ssn, mail, user_type, notify_mode, description, 
+    creator, status, creation_time, retention, ext
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.base.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <choose>		<when test="column != null"> ${column} 		</when><otherwise><include refid="Base_Column_List" /></otherwise>	</choose>
+    from  tb_user
+     ${join}<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    	<if test="groupBy != null"> group by ${groupBy}    </if><if test="having != null"> having ${having}    </if><if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.base.model.UserExample" >
+    delete from tb_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.base.model.User" >
+    insert into tb_user (id, user_name, password, 
+      country, expired_date, credentials_expired, 
+      full_name, org, gender, 
+      age, address, phone, 
+      mobile, ssn, mail, 
+      user_type, notify_mode, description, 
+      creator, status, creation_time, 
+      retention, ext)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{country,jdbcType=INTEGER}, #{expiredDate,jdbcType=TIMESTAMP}, #{credentialsExpired,jdbcType=VARCHAR}, 
+      #{fullName,jdbcType=VARCHAR}, #{org,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{ssn,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=INTEGER}, #{notifyMode,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{retention,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.base.model.User" >
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="expiredDate != null" >
+        expired_date,
+      </if>
+      <if test="credentialsExpired != null" >
+        credentials_expired,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="org != null" >
+        org,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="ssn != null" >
+        ssn,
+      </if>
+      <if test="mail != null" >
+        mail,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="notifyMode != null" >
+        notify_mode,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="retention != null" >
+        retention,
+      </if>
+      <if test="ext != null" >
+        ext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=INTEGER},
+      </if>
+      <if test="expiredDate != null" >
+        #{expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="credentialsExpired != null" >
+        #{credentialsExpired,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="org != null" >
+        #{org,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="ssn != null" >
+        #{ssn,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="notifyMode != null" >
+        #{notifyMode,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retention != null" >
+        #{retention,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null" >
+        #{ext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.base.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from  tb_user
+    ${join}<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=INTEGER},
+      </if>
+      <if test="record.expiredDate != null" >
+        expired_date = #{record.expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.credentialsExpired != null" >
+        credentials_expired = #{record.credentialsExpired,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullName != null" >
+        full_name = #{record.fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.org != null" >
+        org = #{record.org,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ssn != null" >
+        ssn = #{record.ssn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mail != null" >
+        mail = #{record.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.notifyMode != null" >
+        notify_mode = #{record.notifyMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationTime != null" >
+        creation_time = #{record.creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.retention != null" >
+        retention = #{record.retention,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext != null" >
+        ext = #{record.ext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_user
+    set id = #{record.id,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=INTEGER},
+      expired_date = #{record.expiredDate,jdbcType=TIMESTAMP},
+      credentials_expired = #{record.credentialsExpired,jdbcType=VARCHAR},
+      full_name = #{record.fullName,jdbcType=VARCHAR},
+      org = #{record.org,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      ssn = #{record.ssn,jdbcType=VARCHAR},
+      mail = #{record.mail,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      notify_mode = #{record.notifyMode,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      creation_time = #{record.creationTime,jdbcType=TIMESTAMP},
+      retention = #{record.retention,jdbcType=VARCHAR},
+      ext = #{record.ext,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.base.model.User" >
+    update tb_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="expiredDate != null" >
+        expired_date = #{expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="credentialsExpired != null" >
+        credentials_expired = #{credentialsExpired,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="org != null" >
+        org = #{org,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="ssn != null" >
+        ssn = #{ssn,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="notifyMode != null" >
+        notify_mode = #{notifyMode,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retention != null" >
+        retention = #{retention,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null" >
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.base.model.User" >
+    update tb_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      country = #{country,jdbcType=INTEGER},
+      expired_date = #{expiredDate,jdbcType=TIMESTAMP},
+      credentials_expired = #{credentialsExpired,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      org = #{org,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      ssn = #{ssn,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      notify_mode = #{notifyMode,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      retention = #{retention,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<select id="selectByModel" resultMap="BaseResultMap" parameterType="com.base.model.User"> select   <include refid="Base_Column_List" />  from tb_user
+      where 1 = 1 
+      <if test="userName != null"> and 
+        user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null"> and 
+        password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="country != null"> and 
+        country = #{country,jdbcType=INTEGER}
+      </if>
+      <if test="expiredDate != null"> and 
+        expired_date = #{expiredDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="credentialsExpired != null"> and 
+        credentials_expired = #{credentialsExpired,jdbcType=VARCHAR}
+      </if>
+      <if test="fullName != null"> and 
+        full_name = #{fullName,jdbcType=VARCHAR}
+      </if>
+      <if test="org != null"> and 
+        org = #{org,jdbcType=INTEGER}
+      </if>
+      <if test="gender != null"> and 
+        gender = #{gender,jdbcType=VARCHAR}
+      </if>
+      <if test="age != null"> and 
+        age = #{age,jdbcType=INTEGER}
+      </if>
+      <if test="address != null"> and 
+        address = #{address,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null"> and 
+        phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="mobile != null"> and 
+        mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="ssn != null"> and 
+        ssn = #{ssn,jdbcType=VARCHAR}
+      </if>
+      <if test="mail != null"> and 
+        mail = #{mail,jdbcType=VARCHAR}
+      </if>
+      <if test="userType != null"> and 
+        user_type = #{userType,jdbcType=INTEGER}
+      </if>
+      <if test="notifyMode != null"> and 
+        notify_mode = #{notifyMode,jdbcType=INTEGER}
+      </if>
+      <if test="description != null"> and 
+        description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="creator != null"> and 
+        creator = #{creator,jdbcType=INTEGER}
+      </if>
+      <if test="status != null"> and 
+        status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="creationTime != null"> and 
+        creation_time = #{creationTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="retention != null"> and 
+        retention = #{retention,jdbcType=VARCHAR}
+      </if>
+      <if test="ext != null"> and 
+        ext = #{ext,jdbcType=VARCHAR}
+      </if></select><select id="distinct" resultMap="BaseResultMap" parameterType="com.base.model.UserExample"> select  distinct ${column}  from  tb_user
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="sum" resultType="java.lang.String" parameterType="com.base.model.UserExample"> select sum(${column}) as ${column} from  tb_user
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="min" resultType="java.lang.String" parameterType="com.base.model.UserExample"> select  min(${column}) as ${column} from  tb_user
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="max" resultType="java.lang.String" parameterType="com.base.model.UserExample"> select  max(${column}) as ${column} from  tb_user
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><select id="avg" resultType="java.lang.String" parameterType="com.base.model.UserExample"> select  avg(${column}) as ${column} from  tb_user
+     <if test="_parameter != null"><include refid="Example_Where_Clause" />    </if>  </select><sql id="Base_Column_List_Map"> 
+    id, user_name as  userName, password, country, expired_date as  expiredDate, credentials_expired as  credentialsExpired, full_name as  fullName, org, 
+    gender, age, address, phone, mobile, ssn, mail, user_type as  userType, notify_mode as  notifyMode, description, 
+    creator, status, creation_time as  creationTime, retention, ext
+  </sql>  <select id="selectByExampleForMap" resultType="map" 	parameterType="com.base.model.UserExample"> 	select 	<if test="distinct"> distinct    </if> 	<choose> 		<when test="column != null"> ${column} 		</when> 		<otherwise> 			<include refid="Base_Column_List_Map" /> 		</otherwise> 	</choose> 	from  tb_user
+     ${join} 	<if test="_parameter != null"> 		<include refid="Example_Where_Clause" /> 	</if> 	<if test="groupBy != null"> group by ${groupBy}    </if> <if test="having != null"> having ${having}    </if><if test="orderByClause != null"> order by ${orderByClause}    </if> </select><resultMap id="BaseResultMapJoin" type="com.base.model.User" >
+    <id column="user_id" property="id" jdbcType="INTEGER" />
+    <result column="user_user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="password" jdbcType="VARCHAR" />
+    <result column="user_country" property="country" jdbcType="INTEGER" />
+    <result column="user_expired_date" property="expiredDate" jdbcType="TIMESTAMP" />
+    <result column="user_credentials_expired" property="credentialsExpired" jdbcType="VARCHAR" />
+    <result column="user_full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="user_org" property="org" jdbcType="INTEGER" />
+    <result column="user_gender" property="gender" jdbcType="VARCHAR" />
+    <result column="user_age" property="age" jdbcType="INTEGER" />
+    <result column="user_address" property="address" jdbcType="VARCHAR" />
+    <result column="user_phone" property="phone" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="user_ssn" property="ssn" jdbcType="VARCHAR" />
+    <result column="user_mail" property="mail" jdbcType="VARCHAR" />
+    <result column="user_user_type" property="userType" jdbcType="INTEGER" />
+    <result column="user_notify_mode" property="notifyMode" jdbcType="INTEGER" />
+    <result column="user_description" property="description" jdbcType="VARCHAR" />
+    <result column="user_creator" property="creator" jdbcType="INTEGER" />
+    <result column="user_status" property="status" jdbcType="VARCHAR" />
+    <result column="user_creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="user_retention" property="retention" jdbcType="VARCHAR" />
+    <result column="user_ext" property="ext" jdbcType="VARCHAR" />
+  </resultMap><insert id="batchInsert" parameterType="java.util.List" >insert into tb_user (id, user_name, password, 
+      country, expired_date, credentials_expired, 
+      full_name, org, gender, 
+      age, address, phone, 
+      mobile, ssn, mail, 
+      user_type, notify_mode, description, 
+      creator, status, creation_time, 
+      retention, ext)
+    values<foreach collection="list" item="item" index="index"  separator=","> (#{item.id,jdbcType=INTEGER}, #{item.userName,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 
+      #{item.country,jdbcType=INTEGER}, #{item.expiredDate,jdbcType=TIMESTAMP}, #{item.credentialsExpired,jdbcType=VARCHAR}, 
+      #{item.fullName,jdbcType=VARCHAR}, #{item.org,jdbcType=INTEGER}, #{item.gender,jdbcType=VARCHAR}, 
+      #{item.age,jdbcType=INTEGER}, #{item.address,jdbcType=VARCHAR}, #{item.phone,jdbcType=VARCHAR}, 
+      #{item.mobile,jdbcType=VARCHAR}, #{item.ssn,jdbcType=VARCHAR}, #{item.mail,jdbcType=VARCHAR}, 
+      #{item.userType,jdbcType=INTEGER}, #{item.notifyMode,jdbcType=INTEGER}, #{item.description,jdbcType=VARCHAR}, 
+      #{item.creator,jdbcType=INTEGER}, #{item.status,jdbcType=VARCHAR}, #{item.creationTime,jdbcType=TIMESTAMP}, 
+      #{item.retention,jdbcType=VARCHAR}, #{item.ext,jdbcType=VARCHAR})
+  </foreach></insert></mapper>

@@ -1,0 +1,1 @@
+package  com.base.dao;import com.base.model.AuthoritiesResources;import com.base.model.AuthoritiesResourcesExample;import com.base.dao.BaseDao;public interface AuthoritiesResourcesMapper extends BaseDao<AuthoritiesResources, AuthoritiesResourcesExample> {}

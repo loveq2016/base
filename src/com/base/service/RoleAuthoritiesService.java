@@ -1,0 +1,1 @@
+package  com.base.service;import com.base.model.RoleAuthorities;import com.base.model.RoleAuthoritiesExample;import com.base.service.BaseService;public interface RoleAuthoritiesService extends BaseService<RoleAuthorities, RoleAuthoritiesExample> {}
