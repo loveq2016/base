@@ -6,7 +6,7 @@
 
 	<!-- 懒加载和缓存     -->
 	<settings>
-		<setting name="cacheEnabled" value="false" />
+		<setting name="cacheEnabled" value="true" />
 		<setting name="lazyLoadingEnabled" value="true" />
 		<setting name="aggressiveLazyLoading" value="false" />
 	</settings>
@@ -15,9 +15,6 @@
 	    <!-- 物理分页拦截器  -->
         <plugin interceptor="com.util.mybatis.interceptor.PaginationInterceptor" />
 
-		<!-- 缓存拦截器  -->
-		<plugin interceptor="com.util.mybatis.interceptor.CacheInterceptor" />
-			 
 	</plugins>
 
 </configuration>
