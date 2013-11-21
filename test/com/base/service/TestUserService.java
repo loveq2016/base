@@ -10,13 +10,19 @@ import com.base.model.User;
 
 public class TestUserService extends BaseTest {
 
+	
+	
 	@Test
 	public void testAdd() {
-		UserService userService = (UserService)context.getBean("userService");
-		
 	 
 	}
 
+	@Test
+	public void testFind() {
+		UserService userService = (UserService)context.getBean("userService");
+		userService.selectByExample(null);
+	}
+	
 	@Test
     public void test() {
     	UserService userService = (UserService)context.getBean("userService");
@@ -31,7 +37,5 @@ public class TestUserService extends BaseTest {
     		list.add(user);
 		}
     	System.out.println(userService.batchInsert(list));
-    	
-    	 
     }
 }
