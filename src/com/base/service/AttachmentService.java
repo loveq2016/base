@@ -1,9 +1,9 @@
 package com.base.service;
 
-import com.base.model.Attachment;
-import com.base.model.AttachmentExample;
-import com.base.service.BaseService;
+ 
 
-public interface AttachmentService extends
-		BaseService<Attachment, AttachmentExample> {
+public interface AttachmentService  {
+	public String getName(String name, Integer age);
+	
+	public String getMy(String name);
 }
