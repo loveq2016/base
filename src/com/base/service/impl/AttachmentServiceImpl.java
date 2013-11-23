@@ -20,4 +20,16 @@ public class AttachmentServiceImpl extends
 		this.attachmentMapper = attachmentMapper;
 		super.setBaseDao((AttachmentMapperImpl) attachmentMapper);
 	}
+  
+	@Override
+	public String getName(String name, Integer age) {  
+		System.out.println("getName");
+		return name + age;  
+	}
+
+	@Override
+	public String getMy(String name) {
+		System.out.println("name");
+		return name;
+	}
 }
