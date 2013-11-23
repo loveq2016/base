@@ -17,10 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=basePath%>static/js/jquery/jquery.tmpl.min.js"> </script>
 <script type="text/javascript" src="<%=basePath%>static/js/jqueryui/jquery-ui-1.9.1.custom.min.js"> </script>
 <script type="text/javascript" src="<%=basePath%>static/js/jqueryEasyui/jquery.easyui.min.js"> </script>
+<script type="text/javascript" src="<%=basePath%>static/js/jqueryEasyui/locale/easyui-lang-zh_CN.js"> </script>
 <c:set var="basePath" value="<%=basePath%>"/>
 <script type="text/javascript">
      window.basePath = "<%=basePath%>";
 </script>
-<base href="<%=basePath%>">
-<div id='message' style='display:none;'><span id='spanmessage'></span></div>
 <div id="dialogDiv"></div>
