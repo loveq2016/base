@@ -26,9 +26,9 @@ public final class Config {
 	public static String PASSWORD_WRONG  = "您输入的密码和账户名不匹配，请重新输入!";
 	
 	public static Integer YES = 1;  //适合在单选按钮的适合， 是与否
-	public static Integer NO = 2;    //适合在单选按钮的适合， 是与否
+	public static Integer NO = 0;    //适合在单选按钮的适合， 是与否
 	
-	public static Integer TOP_DATA = 0; //所有顶数据标识【0】，适合树形机构的表
+	public static Integer TOP_DATA = -1; //所有顶数据标识【0】，适合树形机构的表
 
 	public static String INVALID_REQUEST = "invalid request";
 	
@@ -45,7 +45,7 @@ public final class Config {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(Config.getValue("age"));
+		System.out.println(Config.getValue("fileSavePath"));
 	}
 }
 

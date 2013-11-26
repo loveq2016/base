@@ -8,4 +8,6 @@ import com.base.service.BaseService;
 
 public interface UserService extends BaseService<User, UserExample>, UserDetailsService {
  
+	
+	public int insertUser(User user);
 }

@@ -7,12 +7,11 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.ui.ModelMap;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -25,8 +24,8 @@ import com.util.string.StringUtil;
  * 所有Controller都应该继承该类，但是要看具体需求
  * @author willenfoo
  */    
-
-public abstract class BaseController {
+@Controller
+public class BaseController {
 	  
 	protected final static String message = "message"; //返回页面的提示信息
 
@@ -45,6 +44,10 @@ public abstract class BaseController {
 	protected final static String HTTP_OK = "200"; //请求成功码
 	
 	protected final static String HTTP_NO = "201"; //请求错误码
+	
+	protected final static String SUCCESS_TEXT = "操作成功!";
+	
+	protected final static String FAILURE_TEXT = "操作失败!";
 	
 	/**
 	 * 得到HttpServletRequest对象
@@ -262,7 +265,8 @@ public abstract class BaseController {
 	 */
 	public Map<String, Object> getSuccessResult() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(code, HTTP_OK);  
+		map.put(code, HTTP_OK); 
+		map.put(message, SUCCESS_TEXT);
 		return map;
 	}
 	

@@ -17,7 +17,7 @@ public class AttachmentServiceImpl extends
 
 	@Resource
 	public void setAttachmentMapper(AttachmentMapper attachmentMapper) {
-		this.attachmentMapper = attachmentMapper;
+		this.attachmentMapper = attachmentMapper;  
 		super.setBaseDao((AttachmentMapperImpl) attachmentMapper);
 	}
   

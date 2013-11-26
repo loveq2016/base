@@ -33,6 +33,8 @@
 			authentication-failure-url="/login?login_error=1"
 			always-use-default-target="true" default-target-url="/index" />
 
+        <logout logout-success-url="/login" logout-url="/logout" />
+      
 		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
 	</http>
 

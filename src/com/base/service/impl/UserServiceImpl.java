@@ -51,7 +51,7 @@ public class UserServiceImpl extends
 	@Resource
 	private ResourcesService resourcesService;
 	
-	private final Log log = LogFactory.getLog(this.getClass());
+	private final static Log log = LogFactory.getLog(UserServiceImpl.class);
 	
 	@Resource
 	public void setUserMapper(UserMapper userMapper) {
@@ -136,6 +136,19 @@ public class UserServiceImpl extends
 			user.setResourcess(resourcess);
 		}
 		return user;
+	}
+ 
+	public int insertUser(User user) {
+		
+		//插入用户前, 检查该用户名是否已经存在
+		User checkUser = new User();
+		checkUser.setUserName(user.getUsername());
+		checkUser = selectByModel(checkUser);
+		if (checkUser != null) {
+			//存在直接抛出异常
+			throw new RuntimeException();
+		}
+		return 1;
 	}
 	
 }

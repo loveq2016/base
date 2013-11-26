@@ -44,7 +44,7 @@ public class UserController extends BaseController {
 	public Object save(User user) {
 		Map<String, Object> map = getSuccessResult();
 		if (user.getId() == null) {
-			
+			userService.insert(user);
 		} else {
 			userService.updateById(user);
 		}
