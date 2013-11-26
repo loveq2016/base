@@ -111,6 +111,10 @@ function opinionTime(stratTime, endTime) {
 		return true;
 }
 
+function dateFormatByEasyui(value, row, index) {
+	return dateFormat(value);
+}
+
 function dateFormat(date,format) {
 	if (isEmpty(format)) {
 		format = "yyyy-MM-dd hh:mm:ss";
@@ -143,6 +147,12 @@ function getDateDiff(startTime, endTime, diffType) {
 	}
 	return parseInt((eTime.getTime() - sTime.getTime()) / parseInt(divNum));
 }
+
+function action() {
+	 return "aaa";
+}
+
+
 
 Date.prototype.format = function(format) // author: meizz
 {
@@ -196,46 +206,6 @@ $.fn.deserialized = function(o){
         }
     });
 };
-
- 
-function alert(text) {
-    $("#spanmessage").text(text);
-    $("#message").dialog({
-        title:"企业信息管理系统，提示您",
-        modal: true,
-        buttons: {
-           "确定": function() {
-              $(this).dialog("close");
-           }
-       }
-	});
-}
-
-function confirmDel(callback) {
-    confirm("您确认删除吗？", callback)
-}
-
-function confirmCancel(callback) {
-    confirm("您确认取消吗？", callback)
-}
- 
-function confirm(text, callback) {
-    $("#spanmessage").text(text);
-    $("#message").dialog({
-       title: "企业信息管理系统，提示您",
-       modal: true,
-       resizable: false,
-       buttons: {
-          "否": function() {
-		      $(this).dialog("close");
-          },
-          "是": function() {
-              $(this).dialog("close");
-			  callback.call();
-          }
-       }
-     });
-}
 
 /**
  * 选中复选框，如果已经选中，取消选中
@@ -292,4 +262,86 @@ function getCheckboxVals(checkboxName,delimiter) {
 		value = value.substring(0,value.length-1);
 	}
 	return value;
+}
+
+function addTab(subtitle, url, icon) {
+    if (!$('#maintabs').tabs('exists', subtitle)) {
+            //判断是否进行iframe方式打开tab，默认为href方式
+        if(url.indexOf('isIframe') != -1){
+            $('#maintabs').tabs('add', {
+                    title : subtitle,
+                    content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+                    closable : true,
+                    icon : icon
+            });    
+        } else {
+            $('#maintabs').tabs('add', {
+                    title : subtitle,
+                    href : url,
+                    closable : true,
+                    icon : icon
+            });                        
+        }
+    } else {
+        $('#maintabs').tabs('select', subtitle);
+    }
+}
+
+function initAdd(module) {
+	$("#"+module+"EditForm").form('reset');
+	$("#"+module+"EditDiv").dialog({
+	    title: '添加'
+	}).dialog('open');
+}
+
+function initUpdate(module,url) {
+	var row = $("#"+module+"Grid").datagrid('getSelected');
+	if (row) {
+		$("#"+module+"EditForm").form('load',url+"?id="+row.id);	// load from URL
+		$("#"+module+"EditDiv").dialog({
+		    title: '修改',
+		    resizable:true,
+		    modal:true,
+		    closed: false,
+		    cache: false,
+		    modal: true
+		}).dialog('open');
+	}
+}
+
+function isSuccess(resultData) {
+	if (!resultData.code == "200") {
+		showAlertErrorMsg(resultData.message);
+	} else {
+		showMsg(resultData.message);
+		return true;
+	}
+}
+
+function showMsg(msg){
+    $.messager.show({
+        title:'系统提示',
+        msg:msg,
+        showType:'show'
+    });
+}
+
+function showAlertErrorMsg(msg){
+	showAlertMsg(msg,'error');
+}
+
+function showAlertMsg(msg, type){
+    $.messager.alert('系统提示',msg, type);
+}
+
+function submitForm(module) {
+	var $form = $("#"+module+"EditForm");
+	if ($form.form("validate")) {
+		$.post($form.attr("action"),$form.serialize(),function (resultData) {
+			if (isSuccess(resultData)) {
+				$form.parents(".easyui-dialog").dialog('close');
+				$("#"+module+"Grid").datagrid({pageNumber:1}).datagrid('reload');
+			}
+		},"json")
+	}
 }
