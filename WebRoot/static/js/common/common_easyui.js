@@ -153,3 +153,26 @@ function showAlertErrorMsg(msg){
 function showAlertMsg(msg, type){
 	$.messager.alert('系统提示',msg, type);
 }
+
+function addTab(subtitle, url, icon) {
+    if (!$('#maintabs').tabs('exists', subtitle)) {
+            //判断是否进行iframe方式打开tab，默认为href方式
+        if(url.indexOf('isIframe') != -1){
+            $('#maintabs').tabs('add', {
+                    title : subtitle,
+                    content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+                    closable : true,
+                    icon : icon
+            });    
+        } else {
+            $('#maintabs').tabs('add', {
+                    title : subtitle,
+                    href : url,
+                    closable : true,
+                    icon : icon
+            });                        
+        }
+    } else {
+        $('#maintabs').tabs('select', subtitle);
+    }
+}
