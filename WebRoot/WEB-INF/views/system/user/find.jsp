@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
- 
-<table  class="easyui-datagrid" id="userGrid" width="auto;" height="auto;"  
-        url="system/user/find"  title="用户数据" data-options="onDblClickCell: function(index,field,value){initUpdate('user','execute/user/findById');}" singleSelect="true" rownumbers="true" pagination="true" toolbar="#tbUser">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="module" value="user"></c:set>
+<table  class="easyui-datagrid" id="${module }Grid" width="auto;" height="auto;"  
+        url="system/user/find"  title="用户数据" data-options="onDblClickCell: function(index,field,value){initUpdate('${module }','execute/user/findById');}" singleSelect="true" rownumbers="true" pagination="true" toolbar="#tbUser">
     <thead>
         <tr>
             <th field="id" hidden="true">id</th>
@@ -19,28 +20,25 @@
 
  <div id="tbUser" style="padding:5px;height:auto">
     <div style="margin-bottom:5px">
-        <a href="javascript:void(0);" onclick="initAdd('user');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑"></a>
+        <a href="javascript:void(0);" onclick="initAdd('${module }');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加">添加</a>
+        <a href="javascript:void(0);" onclick="initUpdate('${module }','execute/user/findById');" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑">编辑</a>
         <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole();" plain="true" title="分配角色">分配角色</a>
     </div>
-    <div>
-        Date From: <input class="easyui-datebox" style="width:80px">
-        To: <input class="easyui-datebox" style="width:80px" type="text">
-        Language: 
-        <select class="easyui-combobox" panelHeight="auto" style="width:100px">
-            <option value="java">Java</option>
-            <option value="c">C</option>
-            <option value="basic">Basic</option>
-            <option value="perl">Perl</option>
-            <option value="python">Python</option>
-        </select>
-        <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+    <div id="${module }SearchDiv">
+                     用户名: <input  style="width:80px" name="userName">
+                     年龄: <input name="age" style="width:60px" class="easyui-numberbox" data-options="required:false">
+                              到 <input name="age" style="width:60px" class="easyui-numberbox" data-options="required:false">之间
+                     性别: <select class="easyui-combobox" name="gender">
+                 <option value="男">男</option>
+                 <option value="女">女</option>
+              </select>
+        <a href="javascript:void(0);" onclick="searchData('${module }');"  class="easyui-linkbutton" iconCls="icon-search">搜索</a>
     </div>
 </div>
 
-<div class="easyui-dialog"  closed="true" id="userEditDiv" style="width:400px;" >
+<div class="easyui-dialog"  closed="true" id="${module }EditDiv" style="width:400px;" >
     <div style="padding:10px 0 10px 60px">
-        <form id="userEditForm" method="post" action="system/user/save">
+        <form id="${module }EditForm" method="post" action="system/user/save">
 			<table>
 			    <tr>
 	                <td>用户名:</td>
@@ -85,8 +83,8 @@
 		</form>
     </div>
     <div style="text-align:center;padding:5px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('user')">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#editUserForm').form('reset');">重置</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('${module }')">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#${module }EditForm').form('reset');">重置</a>
     </div>
 </div>
 <script type="text/javascript" src="static/js/system/user/user.js"></script>
