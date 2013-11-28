@@ -27,7 +27,7 @@ import com.util.string.StringUtil;
 @Controller
 public class BaseController {
 	  
-	protected final static String message = "message"; //返回页面的提示信息
+	protected final static String message = "msg"; //返回页面的提示信息
 
 	protected final static String code = "code"; //返回的的状态码
 	
