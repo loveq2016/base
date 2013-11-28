@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="static/js/jqueryEasyui/themes/icon.css">
 <script type="text/javascript" src="static/js/jquery/jquery-1.7.2.min.js"> </script>
 <script type="text/javascript" src="static/js/common/common.js"> </script>
+<script type="text/javascript" src="static/js/common/common_easyui.js"> </script>
 <script type="text/javascript" src="static/js/jqueryEasyui/jquery.easyui.min.js"> </script>
 <script type="text/javascript" src="static/js/jqueryEasyui/locale/easyui-lang-zh_CN.js"> </script>
 <div id="dialogDiv" style="width:400px;">
