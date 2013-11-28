@@ -78,12 +78,15 @@ function submitForm(module) {
  * @param module
  * @param url
  */
-function delById(module,url) {
-	var row = getSelected(module);
-    if (row) {
+function delById(module,url, id) {
+	if (isEmpty(id)) {
+		var row = getSelected(module);
+		id = row.id;
+	}
+    if (!isEmpty(id)) {
     	$.messager.confirm('系统提示', '您确认吗?', function(r){
             if (r){
-            	$.post(url,{id:row.id},function (resultData) {
+            	$.post(url,{id:id},function (resultData) {
             		if (isSuccess(resultData)) {
             			$("#"+module+"Grid").datagrid('reload');
             		}
@@ -97,7 +100,7 @@ function delById(module,url) {
  * 搜索数据，所有搜索都必须调用这个方法
  * @param module
  */
-function search(module) {
+function searchData(module) {
 	var $grid = $("#"+module+"Grid");
 	var queryParams = $grid.datagrid('options').queryParams;
 	$("#"+module+"SearchDiv").find('*').each(function() {
@@ -112,6 +115,10 @@ function getSelected(module) {
     	showMsg("你没有选中数据,请选择一条数据!");
     }
     return row;
+}
+
+function selectRow(module, index) {
+	$("#"+module+"Grid").datagrid('selectRow', index);
 }
 
 /**
