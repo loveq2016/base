@@ -7,11 +7,8 @@ function userAction(value,row,index) {
 function assignRole() {
 	$("#dialogDiv").dialog({
 	    title: '分配角色',
-	    resizable:true,
-	    modal:true,
-	    closed: false,
-	    cache: false,
-	    modal: true,
-	    href: 'forward/system/role/find',
+	    href: 'forward/system/role/assignRole',
+	    width: 900,
+	    height: 600
 	}).dialog('open');
 }
