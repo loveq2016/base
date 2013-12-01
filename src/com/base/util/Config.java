@@ -1,17 +1,21 @@
 package com.base.util;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public final class Config {
 
-	private static Properties config = null;
+	private static Map<String, Properties> configs = new HashMap<String, Properties>();
+	
+	private static Properties defaultProperties;
 	
 	static {
 		try {
-			config = PropertiesLoaderUtils.loadAllProperties("config.properties");
+			defaultProperties = PropertiesLoaderUtils.loadAllProperties("config.properties");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,17 +39,35 @@ public final class Config {
 	public static String SUCCESS = "操作成功!";
 	
 	public static String FAILURE = "操作失败!";
+	
 	/** 
 	 * 取配置文件中的值 如果没有 就 返回""
-	 * @param key
+	 * @param key 
 	 * @return
 	 */
 	public static String getValue(String key) {
-		return config.getProperty(key, "");
+		return defaultProperties.getProperty(key, "");
 	}
 	
+	
+	public static String getValue(String propertieName, String key) {
+		Properties properties = configs.get(propertieName);
+		if (properties != null) {
+			return properties.getProperty(key, "");
+		} else {
+			Properties config;
+			try {
+				config = PropertiesLoaderUtils.loadAllProperties(propertieName+".properties");
+				configs.put(propertieName, config);
+				return config.getProperty(key, "");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return "";
+		}
+	}
 	public static void main(String[] args) {
-		System.out.println(Config.getValue("fileSavePath"));
+		System.out.println(Config.getValue("jdbc","initialSize"));
 	}
 }
 
