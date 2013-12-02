@@ -1,5 +1,7 @@
 package com.base.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.base.service.impl.BaseServiceImpl;
@@ -20,4 +22,6 @@ public class RoleServiceImpl extends
 		this.roleMapper = roleMapper;
 		super.setBaseDao((RoleMapperImpl) roleMapper);
 	}
+
+	
 }
