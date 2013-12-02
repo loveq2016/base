@@ -126,7 +126,9 @@ public class BaseController {
 	@RequestMapping("execute/{modelName}/save")
 	@ResponseBody
 	public Object save(@PathVariable("modelName") String modelName) {
-		return ServiceMapping.insertMapping(HttpUtil.getParameterMap(getRequest()), getModelPackage(modelName));
+		Map<String, Object> map = getSuccessResult();
+		ServiceMapping.insertMapping(HttpUtil.getParameterMap(getRequest()), getModelPackage(modelName));
+		return map;
 	}
 	
 	/**
@@ -137,7 +139,9 @@ public class BaseController {
 	@RequestMapping("execute/{modelName}/deleteById")
 	@ResponseBody
 	public Object deleteById(@PathVariable("modelName") String modelName) {
-		return ServiceMapping.deleteByIdMapping(HttpUtil.getParameterMap(getRequest()), getModelPackage(modelName));
+		Map<String, Object> map = getSuccessResult();
+		ServiceMapping.deleteByIdMapping(HttpUtil.getParameterMap(getRequest()), getModelPackage(modelName));
+		return map;
 	}
 	
 	/**
