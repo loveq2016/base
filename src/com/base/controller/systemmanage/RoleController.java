@@ -20,24 +20,24 @@ public class RoleController extends BaseController {
 
 	@Resource
 	private RoleService roleService;
-	
-	
-	
-	@RequestMapping(value="find")
+
+ 
+	@RequestMapping(value = "find")
 	@ResponseBody
 	public Object find(Role role) {
 		Map<String, Object> map = getSuccessResult();
 		RoleExample example = new RoleExample();
 		example.setOrderByClause(" id desc ");
 		RoleExample.Criteria criteria = example.createCriteria();
-		 
-		Pager pager = roleService.selectByPager(example, getOffset()-1, getPageSize());
+
+		Pager pager = roleService.selectByPager(example, getOffset() - 1,
+				getPageSize());
 		map.put(total, pager.getTotal());
 		map.put(rows, pager.getList());
 		return map;
 	}
-	
-	@RequestMapping(value="save")
+
+	@RequestMapping(value = "save")
 	@ResponseBody
 	public Object save(Role role) {
 		Map<String, Object> map = getSuccessResult();
@@ -48,5 +48,13 @@ public class RoleController extends BaseController {
 		}
 		return map;
 	}
-	
+
+	@RequestMapping(value = "assignRole")
+	@ResponseBody
+	public Object assignRole(@RequestParam("roleId") Integer roleId,
+			@RequestParam("userId") Integer userId) {
+		Map<String, Object> map = getSuccessResult();
+
+		return map;
+	}
 }
