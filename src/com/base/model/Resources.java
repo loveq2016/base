@@ -24,6 +24,8 @@ public class Resources extends BaseModel {
     private String retention; /*保留域*/
 
     private String ext; /*扩展*/
+    
+    private String state;
 
     public Integer getId() {
         return id;
@@ -112,4 +114,14 @@ public class Resources extends BaseModel {
     public void setExt(String ext) {
         this.ext = ext == null ? null : ext.trim();
     }
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+    
+    
 }
