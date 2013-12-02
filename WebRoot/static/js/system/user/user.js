@@ -4,11 +4,14 @@ function userAction(value,row,index) {
 }
 
 
-function assignRole() {
-	$("#dialogDiv").dialog({
-	    title: '分配角色',
-	    href: 'forward/system/role/assignRole',
-	    width: 900,
-	    height: 600
-	}).dialog('open');
+function assignRole(namespace) {
+	var row = getSelected(namespace);
+	if (row) {
+		$("#dialogDiv").dialog({
+		    title: '分配角色',
+		    href: 'forward/system/userRole/assignRole?userId='+row.id,
+		    width: 1100,
+		    height: 560
+		}).dialog('open');
+	}
 }
