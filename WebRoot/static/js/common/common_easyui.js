@@ -109,8 +109,8 @@ function searchData(module) {
 	$grid.datagrid({pageNumber:1}).datagrid("reload");
 }
 
-function getSelected(module) {
-	var row = $("#"+module+"Grid").datagrid('getSelected');
+function getSelected(namespace) {
+	var row = $("#"+namespace+"Grid").datagrid('getSelected');
     if (!row) {
     	showMsg("你没有选中数据,请选择一条数据!");
     }
