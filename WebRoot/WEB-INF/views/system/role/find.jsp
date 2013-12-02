@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
- 
-<table  class="easyui-datagrid" id="tableRoleDatagrid" width="auto;" height="auto;"  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="namespace" value="role"></c:set>
+
+<table  style="height:515px;" class="easyui-datagrid" id="roleGrid" width="auto;" height="auto;"  
         url="system/role/find"  title="角色数据" singleSelect="true" rownumbers="true" pagination="true" toolbar="#tb">
     <thead>
         <tr>
@@ -16,6 +18,7 @@
     <div style="margin-bottom:5px">
         <a href="javascript:void(0);" onclick="addModel('Role');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
         <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑"></a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole('${namespace }');" plain="true" title="分配访问资源">分配访问资源</a>
     </div>
     <div>
         Date From: <input class="easyui-datebox" style="width:80px">
