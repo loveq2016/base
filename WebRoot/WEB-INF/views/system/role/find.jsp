@@ -18,7 +18,7 @@
     <div style="margin-bottom:5px">
         <a href="javascript:void(0);" onclick="addModel('Role');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
         <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑"></a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole('${namespace }');" plain="true" title="分配访问资源">分配访问资源</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignResources('${namespace }');" plain="true" title="分配访问资源">分配访问资源</a>
     </div>
     <div>
         Date From: <input class="easyui-datebox" style="width:80px">
