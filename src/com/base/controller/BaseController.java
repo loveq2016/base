@@ -12,6 +12,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -48,6 +49,46 @@ public class BaseController {
 	protected final static String SUCCESS_TEXT = "操作成功!";
 	
 	protected final static String FAILURE_TEXT = "操作失败!";
+	
+	
+	/** RESTFUL URL  start */
+	
+	@RequestMapping(value="{modelName}", method = RequestMethod.POST) 
+	public @ResponseBody Object insert(@PathVariable("modelName") String modelName) {
+		return ServiceMapping.insertMapping(HttpUtil.getParameterMap(getRequest()), getModelPackage(modelName));
+	}
+	
+	@RequestMapping(value="{modelName}/{id}",method = RequestMethod.DELETE) 
+	public @ResponseBody Object delete(@PathVariable("modelName") String modelName,
+			@PathVariable("id") Integer id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id+"");
+		return ServiceMapping.deleteByIdMapping(map, getModelPackage(modelName));
+	}
+	
+	@RequestMapping(value="{modelName}/{id}",method = RequestMethod.PUT) 
+	public @ResponseBody Object update(@PathVariable("modelName") String modelName,
+			@PathVariable("id") Integer id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id+"");
+		return ServiceMapping.updateByIdMapping(map, getModelPackage(modelName));
+	}
+	
+	@RequestMapping(value="{modelName}",method = RequestMethod.GET) 
+	public @ResponseBody Object get(@PathVariable("modelName") String modelName) {
+		return ServiceMapping.selectByExampleMapping(HttpUtil
+				.getParameterMap(getRequest()), getModelPackage(modelName),getOffset(), getPageSize());
+	}
+	
+	@RequestMapping(value="{modelName}/{id}",method = RequestMethod.GET) 
+	public @ResponseBody Object get(@PathVariable("modelName") String modelName,
+			@PathVariable("id") Integer id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id+"");
+		return ServiceMapping.selectByIdMapping(map, getModelPackage(modelName));
+	}
+	
+	/** RESTFUL URL  end */
 	
 	/**
 	 * 得到HttpServletRequest对象
@@ -104,6 +145,9 @@ public class BaseController {
 		return bigModule + "/" + smallModule + "/"  + viewName;
 	}
   
+	
+	
+	
 	/**
 	 * 这个方法适合所有的页面跳转，前提是页面不需要加载数据中的数据，或者是前台通过ajax加载
 	 * 都这个通过这个方法跳转
