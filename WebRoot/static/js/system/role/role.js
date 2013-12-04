@@ -23,7 +23,11 @@ function addUserRole(userId) {
 	var row = getSelected("role");
 	if (row) {
 		var sendData = {userId: userId, roleId: row.id};
-		ajaxPost("execute/userRole/save",sendData, success);
+		ajaxPost("execute/userRole/save",sendData, function (resultData) {
+			if (isSuccess(resultData)) {
+				$("#existGrid").datagrid('reload');
+			}
+		});
 		
 	}
 }
@@ -32,15 +36,12 @@ function delUserRole(roleId) {
 	var userId = $("#existGrid").attr("userId");
 	if (!isEmpty(roleId)) {
 		var sendData = {userId:userId, roleId:roleId};
-		ajaxPost("system/role/delUserRole",sendData, success);
+		ajaxPost("system/role/delUserRole",sendData, function (resultData) {
+			
+		});
 	}
 }
 
-function success(resultData) {
-	if (isSuccess(resultData)) {
-		$("#existGrid").datagrid('reload');
-	}
-}
 
 function getQueryString(name)
 {
