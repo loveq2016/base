@@ -25,15 +25,5 @@ public class UserRoleServiceImpl extends
 		super.setBaseDao((UserRoleMapperImpl) userRoleMapper);
 	}
 	
-	@Override
-	public List<UserRole> findByUserId(Integer userId) {
-		UserRoleExample roleExample = new UserRoleExample();
-		roleExample.setColumn(" ur.id as id, r.name as temporary ");
-		roleExample.setJoin(" as ur join tb_role as r on r.id = ur.role_id ");
-		
-		UserRoleExample.Criteria roleCriteria = roleExample.createCriteria();
-		roleCriteria.addCriterion(" ur.user_id = ", userId, "user_id");
-		
-		return selectByExample(roleExample);
-	}
+	
 }
