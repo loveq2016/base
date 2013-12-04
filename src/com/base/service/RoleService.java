@@ -7,5 +7,5 @@ import com.base.model.RoleExample;
 import com.base.service.BaseService;
 
 public interface RoleService extends BaseService<Role, RoleExample> {
-	
+	public List<Role> selectByUserId(Integer userId);
 }
