@@ -8,5 +8,5 @@ import com.base.model.UserRoleExample;
 import com.base.service.BaseService;
 
 public interface UserRoleService extends BaseService<UserRole, UserRoleExample> {
-	public List<UserRole> findByUserId(Integer userId);
+	 
 }
