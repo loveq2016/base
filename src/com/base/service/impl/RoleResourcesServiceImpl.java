@@ -14,6 +14,7 @@ public class RoleResourcesServiceImpl
 		extends
 		BaseServiceImpl<RoleResources, RoleResourcesExample, RoleResourcesMapperImpl>
 		implements RoleResourcesService {
+	
 	private RoleResourcesMapper roleResourcesMapper;
 
 	@Resource
@@ -21,4 +22,5 @@ public class RoleResourcesServiceImpl
 		this.roleResourcesMapper = roleResourcesMapper;
 		super.setBaseDao((RoleResourcesMapperImpl) roleResourcesMapper);
 	}
+
 }
