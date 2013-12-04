@@ -54,7 +54,15 @@ public class RoleController extends BaseController {
 	public Object assignRole(@RequestParam("roleId") Integer roleId,
 			@RequestParam("userId") Integer userId) {
 		Map<String, Object> map = getSuccessResult();
-
 		return map;
 	}
+	
+	@RequestMapping(value = "findByUserId")
+	@ResponseBody
+	public Object findByUserId(@RequestParam("userId") Integer userId) {
+		Map<String, Object> map = getSuccessResult();
+		map.put(rows,roleService.selectByUserId(userId));
+		return map;
+	}
+	
 }
