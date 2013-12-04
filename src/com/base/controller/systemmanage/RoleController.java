@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import com.base.controller.BaseController;
 import com.base.model.Role;
 import com.base.model.RoleExample;
+import com.base.model.UserRoleExample;
 import com.base.service.RoleService;
+import com.base.service.UserRoleService;
 import com.util.pager.Pager;
 import com.util.string.StringUtil;
 
@@ -21,6 +23,8 @@ public class RoleController extends BaseController {
 	@Resource
 	private RoleService roleService;
 
+	@Resource
+	private UserRoleService userRoleService;
  
 	@RequestMapping(value = "find")
 	@ResponseBody
@@ -49,11 +53,16 @@ public class RoleController extends BaseController {
 		return map;
 	}
 
-	@RequestMapping(value = "assignRole")
+	@RequestMapping(value = "delUserRole")
 	@ResponseBody
 	public Object assignRole(@RequestParam("roleId") Integer roleId,
 			@RequestParam("userId") Integer userId) {
 		Map<String, Object> map = getSuccessResult();
+		UserRoleExample example = new UserRoleExample();
+		UserRoleExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		criteria.andRoleIdEqualTo(roleId);
+		userRoleService.deleteByExample(example);
 		return map;
 	}
 	
