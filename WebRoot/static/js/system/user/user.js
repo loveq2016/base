@@ -9,7 +9,7 @@ function assignRole(namespace) {
 	if (row) {
 		$("#dialogDiv").dialog({
 		    title: '分配角色',
-		    href: 'forward/system/userRole/assignRole?userId='+row.id,
+		    href: 'forward/system/role/assignRole?userId='+row.id,
 		    width: 1100,
 		    height: 560
 		}).dialog('open');
