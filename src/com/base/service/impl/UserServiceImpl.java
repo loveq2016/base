@@ -11,23 +11,16 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.base.service.impl.BaseServiceImpl;
-import com.base.model.Authorities;
-import com.base.model.AuthoritiesExample;
 import com.base.model.Resources;
-import com.base.model.ResourcesExample;
 import com.base.model.Role;
-import com.base.model.RoleExample;
 import com.base.model.User;
 import com.base.model.UserExample;
 import com.base.dao.impl.UserMapperImpl;
 import com.base.dao.UserMapper;
-import com.base.service.AuthoritiesService;
 import com.base.service.ResourcesService;
 import com.base.service.RoleService;
 import com.base.service.UserService;
@@ -40,13 +33,11 @@ public class UserServiceImpl extends
 		BaseServiceImpl<User, UserExample, UserMapperImpl> implements
 		UserService {
 	
+	@SuppressWarnings("unused")
 	private UserMapper userMapper;
 
 	@Resource
 	private RoleService roleService;
-	
-	@Resource
-	private AuthoritiesService authoritiesService;
 	
 	@Resource
 	private ResourcesService resourcesService;
@@ -75,64 +66,29 @@ public class UserServiceImpl extends
 			if (!user.getPassword().equals(Md5Util.getMD5(HttpUtil.getRequest().getParameter("password")))) {
 				throw new AuthenticationServiceException(Config.PASSWORD_WRONG);
 			}
+			
 			//4. 用户名跟密码验证正确, 根据用户ID查找到该用户有那些角色
-			RoleExample roleExample = new RoleExample();
-			roleExample.setColumn(" r.id, r.name ");
-			roleExample.setJoin(" as r join tb_user_role as ur on r.id = ur.role_id ");
-			
-			RoleExample.Criteria roleCriteria = roleExample.createCriteria();
-			roleCriteria.addCriterion(" ur.user_id = ", user.getId(), "user_id");
-			
-			List<Role> roles = roleService.selectByExample(roleExample);
-			
+			List<Role> roles = roleService.selectByUserId(user.getId());
 			List<Integer> roleIds = new ArrayList<Integer>();
-			for (Role role : roles) {
-				roleIds.add(role.getId());
-				log.debug("该用户的角色=====" +role.getName());
-			}
-			
-			//5. 根据角色id, 查找到该角色有那些权限
-			AuthoritiesExample authoritiesExample = new AuthoritiesExample();
-			authoritiesExample.setDistinct(true);
-			authoritiesExample.setColumn(" a.id, a.name ");
-			authoritiesExample.setJoin(" as a join tb_role_authorities as ra on a.id = ra.authorities_id ");
-			
-			AuthoritiesExample.Criteria authoritiesCriteria = authoritiesExample.createCriteria();
-			authoritiesCriteria.addCriterion(" ra.role_id in ", roleIds, "role_id");
-			List<Authorities> authoritiess = authoritiesService.selectByExample(authoritiesExample);
 			
 			List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();//权限名称集合, 该用户有那些权限
 			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
 			auths.add(grantedAuthority);
-			
-			List<Integer> authIds = new ArrayList<Integer>();
-			for (Authorities authorities : authoritiess) {
-				grantedAuthority = new SimpleGrantedAuthority(authorities.getName());
+			for (Role role : roles) {
+				roleIds.add(role.getId());
+				grantedAuthority = new SimpleGrantedAuthority(role.getName());
 				auths.add(grantedAuthority);
-				authIds.add(authorities.getId());
-				
-				log.debug("该用户的权限=====" +authorities.getName());
+				log.debug("该用户的角色=====" +role.getName());
 			}
-			
 			user.setAuthorities(auths);
 			
-			//6. 根据权限id, 查找到该权限能访问那些模块
-			ResourcesExample resourcesExample = new ResourcesExample();
-			resourcesExample.setDistinct(true);
-			resourcesExample.setColumn("r.id, r.name ,r.link_url, r.parent_id");
-			resourcesExample.setJoin(" as r join tb_authorities_resources as ar on r.id = ar.resources_id ");
-			
-			ResourcesExample.Criteria resourcesCriteria = resourcesExample.createCriteria();
-			resourcesCriteria.addCriterion(" ar.authorities_id in ", authIds, "authorities_id");
-			
-			List<Resources> resourcess = resourcesService.selectByExample(resourcesExample);
-			
+			//5. 根据角色id, 查找到该角色可以访问那些资源
+			List<Resources> resourcess = resourcesService.selectByRoleIds(roleIds);
 			if (log.isDebugEnabled()) {
 				for (Resources resources : resourcess) {
 					log.debug("该用户能访问的模块=====" +resources.getName());
 				}
 			}
-			
 			user.setResourcess(resourcess);
 		}
 		return user;
