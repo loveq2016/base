@@ -28,7 +28,7 @@ public class ResourcesServiceImpl extends
 		ResourcesExample example = new ResourcesExample();
 		example.setDistinct(true);
 		example.setColumn(" r.id, r.name, r.link_url, r.parent_id, r.sequence, r.type");
-		example.setJoin(" as r join tb_role_resources as rr on r.id = rr.role_id ");
+		example.setJoin(" as r left join tb_role_resources as rr on r.id = rr.resources_id ");
 		example.setOrderByClause(" r.sequence ");
 		
 		ResourcesExample.Criteria criteria = example.createCriteria();
