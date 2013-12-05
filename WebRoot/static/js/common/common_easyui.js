@@ -39,6 +39,15 @@ function initAdd(module) {
     }).dialog('open');
 }
 
+
+function common_add(title, url) {
+	$("#dialogDiv").dialog({
+        title: title,
+        modal: true,
+        href:url
+    }).dialog('open');
+}
+
 /**
  * 初始化修改的弹出层，如果不例外，所有的修改窗口都必须调用这个方法 
  * @param module 模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
@@ -69,7 +78,7 @@ function submitForm(module) {
                 $form.parents(".easyui-dialog").dialog('close');
                 $("#"+module+"Grid").datagrid({pageNumber:1}).datagrid('reload');
             }
-        },"json")
+        },"json");
     }
 }
 
@@ -141,7 +150,7 @@ function isSuccess(resultData) {
  * 操作成功，在屏幕右下方提示用户成功
  * @param msg
  */
-function showMsg(msg){
+function showMsg(msg) {
 	$.messager.show({
 	    title:'系统提示',
 	    msg:msg,
@@ -163,20 +172,20 @@ function showAlertMsg(msg, type){
 
 function addTab(subtitle, url, icon) {
     if (!$('#maintabs').tabs('exists', subtitle)) {
-            //判断是否进行iframe方式打开tab，默认为href方式
+    	//判断是否进行iframe方式打开tab，默认为href方式
         if(url.indexOf('isIframe') != -1){
             $('#maintabs').tabs('add', {
-                    title : subtitle,
-                    content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
-                    closable : true,
-                    icon : icon
+                title : subtitle,
+                content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+                closable : true,
+                icon : icon
             });    
         } else {
             $('#maintabs').tabs('add', {
-                    title : subtitle,
-                    href : url,
-                    closable : true,
-                    icon : icon
+                title : subtitle,
+                href : url,
+                closable : true,
+                icon : icon
             });                        
         }
     } else {
