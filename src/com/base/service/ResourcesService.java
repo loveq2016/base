@@ -10,4 +10,6 @@ public interface ResourcesService extends
 		BaseService<Resources, ResourcesExample> {
 	
 	public List<Resources> selectByRoleIds(List<Integer> roleIds);
+	
+	public List<Resources> selectByRoleId(Integer roleId);
 }
