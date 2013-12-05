@@ -7,8 +7,8 @@ function assignResources(namespace) {
 	var row = getSelected(namespace);
 	if (row) {
 		$("#dialogDiv").dialog({
-		    title: '分配角色',
-		    href: 'forward/system/userRole/assignRole?userId='+row.id,
+		    title: '分配访问资源',
+		    href: 'forward/system/resources/assignResources?roleId='+row.id,
 		    width: 1100,
 		    height: 560
 		}).dialog('open');
@@ -28,7 +28,6 @@ function addUserRole(userId) {
 				$("#existGrid").datagrid('reload');
 			}
 		});
-		
 	}
 }
 
@@ -37,7 +36,9 @@ function delUserRole(roleId) {
 	if (!isEmpty(roleId)) {
 		var sendData = {userId:userId, roleId:roleId};
 		ajaxPost("system/role/delUserRole",sendData, function (resultData) {
-			
+			if (isSuccess(resultData)) {
+				$("#existGrid").datagrid('reload');
+			}
 		});
 	}
 }
