@@ -38,6 +38,8 @@ public class BaseController {
 
 	protected final static String items = "items"; //返回json数据的或者list数据的key名称
 	
+	protected final static String ITEM = "item"; //返回json数据的或者list数据的key名称
+	
 	protected final static String rows = "rows"; //返回json数据的或者list数据的key名称
 
 	protected final static String redirect = "redirect:"; //重定向页面
