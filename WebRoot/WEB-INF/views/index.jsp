@@ -36,7 +36,7 @@
 				<c:forEach
 					items="${SPRING_SECURITY_CONTEXT.authentication.principal.resourcess}"
 					var="item">
-					<c:if test="${item.parentId eq '0' }">
+					<c:if test="${item.parentId eq '-1' }">
 						<div title="${item.name }" iconCls="group_add">
 							<ul>
 								<c:forEach
