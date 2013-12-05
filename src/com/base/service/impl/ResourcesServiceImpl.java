@@ -1,5 +1,6 @@
 package com.base.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -34,5 +35,12 @@ public class ResourcesServiceImpl extends
 		ResourcesExample.Criteria criteria = example.createCriteria();
 		criteria.addCriterion(" rr.role_id in ", roleIds, "role_id");
 		return selectByExample(example);
+	}
+
+	@Override
+	public List<Resources> selectByRoleId(Integer roleId) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(roleId); 
+		return selectByRoleIds(list);
 	}
 }
