@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
 
 	@RequestMapping(value = "delUserRole")
 	@ResponseBody
-	public Object assignRole(@RequestParam("roleId") Integer roleId,
+	public Object delUserRole(@RequestParam("roleId") Integer roleId,
 			@RequestParam("userId") Integer userId) {
 		Map<String, Object> map = getSuccessResult();
 		UserRoleExample example = new UserRoleExample();

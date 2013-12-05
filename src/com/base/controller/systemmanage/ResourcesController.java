@@ -5,6 +5,7 @@ import java.util.*;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.base.controller.BaseController;
@@ -20,6 +21,9 @@ public class ResourcesController extends BaseController {
 	@Resource
 	private ResourcesService resourcesService;
 	
+	@Resource
+	private RoleResourcesService roleResourcesService;
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="find")
 	@ResponseBody
@@ -27,7 +31,7 @@ public class ResourcesController extends BaseController {
 		Map<String, Object> map = getSuccessResult();
 		ResourcesExample example = new ResourcesExample();
 		example.setColumn("id, name, link_url, description, parent_id, sequence, type, creator, creation_time, (select count(*) from tb_resources as cr where cr.parent_id = r.id) as provisional");
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" sequence  ");
 		example.setJoin(" as r ");
 		ResourcesExample.Criteria criteria = example.createCriteria();
 		if (resources.getId() == null) {
@@ -65,6 +69,41 @@ public class ResourcesController extends BaseController {
 			resourcesService.updateById(resources);
 		}
 		return map;
+	}
+	
+	@RequestMapping(value="findByRoleId")
+	@ResponseBody
+	public Object findByRoleId(@RequestParam("roleId") Integer roleId) {
+		Map<String, Object> map = getSuccessResult();
+		map.put(rows, resourcesService.selectByRoleId(roleId));
+		return map;
+	}
+	
+	@RequestMapping(value = "delRoleResources")
+	@ResponseBody
+	public Object delRoleResources(@RequestParam("roleId") Integer roleId,
+			@RequestParam("resourcesId") Integer resourcesId) {
+		Map<String, Object> map = getSuccessResult();
+		RoleResourcesExample example = new RoleResourcesExample();
+		RoleResourcesExample.Criteria criteria = example.createCriteria();
+		criteria.andRoleIdEqualTo(roleId);
+		criteria.andResourcesIdEqualTo(resourcesId);
+		roleResourcesService.deleteByExample(example);
+		return map;
+	}
+	
+	/**
+	 * 修改/编辑 页
+	 * @param id
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "edit")
+	public String edit(@RequestParam(value="id",required=false) Integer id, ModelMap modelMap) {
+		if (id != null) {
+			modelMap.put(ITEM, resourcesService.selectById(id));
+		}
+		return "system/resources/edit";
 	}
 	
 }
