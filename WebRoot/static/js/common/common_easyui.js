@@ -40,14 +40,29 @@ function initAdd(module) {
 }
 
 
-function common_add(title, url) {
+function common_add(title, url, width, height) {
+	openDialog(title, url, width, height);
+}
+
+function common_update(title, url, width, height) {
+	openDialog(title, url, width, height);
+}
+
+function openDialog(title, url, width, height) {
+	if (isEmpty(width)) {
+		width = 400;
+	}
+	if (isEmpty(height)) {
+		height = 300;
+	}
 	$("#dialogDiv").dialog({
         title: title,
         modal: true,
+        width :width,
+        height : height,
         href:url
     }).dialog('open');
 }
-
 /**
  * 初始化修改的弹出层，如果不例外，所有的修改窗口都必须调用这个方法 
  * @param module 模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
@@ -73,10 +88,27 @@ function initUpdate(module,url) {
 function submitForm(module) {
     var $form = $("#"+module+"EditForm");
     if ($form.form("validate")) {
+    	var $grid = $("#"+module+"Grid");
+    	if ($grid.is(".easyui-treegrid")) {
+    		var row = getSelected(module);
+    		if (row) {
+    			$form.find("input[name=parentId]").val(row.id);
+    		}
+    	}
         $.post($form.attr("action"),$form.serialize(),function (resultData) {
             if (isSuccess(resultData)) {
                 $form.parents(".easyui-dialog").dialog('close');
-                $("#"+module+"Grid").datagrid({pageNumber:1}).datagrid('reload');
+                if ($grid.is(".easyui-treegrid")) {
+                	var row = getSelected(module);
+                	if (row && row.parentId != "-1") {
+                		$grid.treegrid('reload', row.parentId);
+                		row.state = "open";
+                	} else {
+                		$grid.treegrid({pageNumber:1}).treegrid('reload');
+                	}
+                } else {
+                	$grid.datagrid({pageNumber:1}).datagrid('reload');
+                }
             }
         },"json");
     }
@@ -119,11 +151,16 @@ function searchData(module) {
 }
 
 function getSelected(namespace) {
-	var row = $("#"+namespace+"Grid").datagrid('getSelected');
-    if (!row) {
-    	showMsg("你没有选中数据,请选择一条数据!");
-    }
-    return row;
+	var $grid = $("#"+namespace+"Grid");
+	if ($grid.is(".easyui-treegrid")) {
+		return $grid.treegrid('getSelected');
+	} else {
+		var row = $grid.datagrid('getSelected');
+	    if (!row) {
+	    	showMsg("你没有选中数据,请选择一条数据!");
+	    }
+	    return row;
+	}
 }
 
 function selectRow(module, index) {
