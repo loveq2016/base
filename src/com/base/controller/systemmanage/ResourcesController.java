@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.base.controller.BaseController;
+import com.base.enums.ResourcesType;
 import com.base.model.*;
 import com.base.service.*;
 import com.base.util.Constants;
@@ -64,6 +65,9 @@ public class ResourcesController extends BaseController {
 	public Object save(Resources resources) {
 		Map<String, Object> map = getSuccessResult();
 		if (resources.getId() == null) {
+			if (resources.getParentId() == null) {
+				resources.setParentId(Constants.TOP_DATA);
+			}
 			resourcesService.insert(resources);
 		} else {
 			resourcesService.updateById(resources);
@@ -101,8 +105,11 @@ public class ResourcesController extends BaseController {
 	@RequestMapping(value = "edit")
 	public String edit(@RequestParam(value="id",required=false) Integer id, ModelMap modelMap) {
 		if (id != null) {
-			modelMap.put(ITEM, resourcesService.selectById(id));
+			modelMap.put("resources", resourcesService.selectById(id));
+		} else {
+			modelMap.put("resources", new Resources());
 		}
+		modelMap.put("resourcesType", ResourcesType.getMap());
 		return "system/resources/edit";
 	}
 	
