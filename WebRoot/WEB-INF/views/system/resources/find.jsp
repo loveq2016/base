@@ -39,7 +39,7 @@
 
 <div id="resourcesTb" style="padding: 5px; height: auto">
 	<div style="margin-bottom: 5px">
-		<a href="javascript:void(0);" onclick="common_add('添加用户','system/resources/edit');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
+		<a href="javascript:void(0);" onclick="common_add('添加资源','system/resources/edit');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
 		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑"></a>
 		
 	</div>
