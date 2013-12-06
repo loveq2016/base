@@ -27,6 +27,9 @@
 			<th field="type" width="80">
 				资源类型
 			</th>
+			<th field="code" width="80">
+				资源code
+			</th>
 			<th field="creationTime" width="120" formatter=dateFormatByEasyui>
 				创建时间
 			</th>

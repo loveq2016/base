@@ -16,11 +16,15 @@
 			</tr>
 			<tr>
 				<td>排序号:</td>
-				<td><form:input path="sequence" class="easyui-numberbox" type="text"  data-options="required:true" /></td>
+				<td><form:input path="sequence" class="easyui-numberbox" data-options="required:true" /></td>
 			</tr>
 			<tr>
 				<td>资源类型:</td>
 				<td><form:select path="type" items="${resourcesType }" ></form:select> </td>
+			</tr>
+			<tr>
+				<td>排序号:</td>
+				<td><form:input path="code" class="easyui-validatebox"  data-options="required:true" /></td>
 			</tr>
 			<tr>
 				<td>描述:</td>
