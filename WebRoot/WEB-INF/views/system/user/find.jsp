@@ -22,7 +22,7 @@
 
  <div id="tbUser" style="padding:5px;height:auto">
     <div style="margin-bottom:5px">
-        <sec:authorize url="/admin11">ddddd
+        <sec:authorize access="hasRole('ROLE_USER')">
             <a href="javascript:void(0);" onclick="initAdd('${module }');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加">添加</a>
         </sec:authorize>
         <a href="javascript:void(0);" onclick="initUpdate('${module }','execute/user/findById');" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑">编辑</a>
