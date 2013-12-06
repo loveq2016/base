@@ -13,6 +13,6 @@
 <script type="text/javascript" src="static/js/common/common_jquery.js"> </script>
 <script type="text/javascript" src="static/js/jqueryEasyui/jquery.easyui.min.js"> </script>
 <script type="text/javascript" src="static/js/jqueryEasyui/locale/easyui-lang-zh_CN.js"> </script>
-<div id="dialogDiv" style="width:400px;" class="easyui-dialog" data-options="resizable:true,modal:true,closed:true">
+<div id="dialogDiv" class="easyui-dialog" data-options="resizable:true,modal:true,closed:true">
       
 </div>
