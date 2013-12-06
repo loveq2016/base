@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="module" value="user"></c:set>
 <c:set var="namespace" value="user"></c:set>
 <table  class="easyui-datagrid" style="height:515px;" id="${module }Grid" 
@@ -21,7 +22,9 @@
 
  <div id="tbUser" style="padding:5px;height:auto">
     <div style="margin-bottom:5px">
-        <a href="javascript:void(0);" onclick="initAdd('${module }');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加">添加</a>
+        <sec:authorize url="/admin11">ddddd
+            <a href="javascript:void(0);" onclick="initAdd('${module }');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加">添加</a>
+        </sec:authorize>
         <a href="javascript:void(0);" onclick="initUpdate('${module }','execute/user/findById');" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑">编辑</a>
         <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole('${namespace }');" plain="true" title="分配角色">分配角色</a>
     </div>
