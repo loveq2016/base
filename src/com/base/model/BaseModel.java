@@ -17,6 +17,7 @@ public abstract class BaseModel {
 	
 	private Object[] array;
 	
+	private String state;
 	
 	public String getTemporary() {
 		return temporary;
@@ -49,6 +50,15 @@ public abstract class BaseModel {
 	public void setArray(Object[] array) {
 		this.array = array;
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 	
 
+	
 }

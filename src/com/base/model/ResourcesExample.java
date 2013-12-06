@@ -495,6 +495,76 @@ public class ResourcesExample extends BaseExample {
             return (Criteria) this;
         }
 
+        public Criteria andCodeIsNull(String as) {
+            addCriterion(as+".code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIsNotNull(String as) {
+            addCriterion(as+".code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeEqualTo(String as,String value) {
+            addCriterion(as+".code =", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotEqualTo(String as,String value) {
+            addCriterion(as+".code <>", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThan(String as,String value) {
+            addCriterion(as+".code >", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThanOrEqualTo(String as,String value) {
+            addCriterion(as+".code >=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThan(String as,String value) {
+            addCriterion(as+".code <", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThanOrEqualTo(String as,String value) {
+            addCriterion(as+".code <=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLike(String as,String value) {
+            addCriterion(as+".code like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotLike(String as,String value) {
+            addCriterion(as+".code not like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIn(String as,List<String> values) {
+            addCriterion(as+".code in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotIn(String as,List<String> values) {
+            addCriterion(as+".code not in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeBetween(String as,String value1, String value2) {
+            addCriterion(as+".code between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotBetween(String as,String value1, String value2) {
+            addCriterion(as+".code not between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeIsNull(String as) {
             addCriterion(as+".type is null");
             return (Criteria) this;
@@ -1200,6 +1270,76 @@ public class ResourcesExample extends BaseExample {
 
         public Criteria andSequenceNotBetween(Integer value1, Integer value2) {
             addCriterion("sequence not between", value1, value2, "sequence");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIsNull() {
+            addCriterion("code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIsNotNull() {
+            addCriterion("code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeEqualTo(String value) {
+            addCriterion("code =", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotEqualTo(String value) {
+            addCriterion("code <>", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThan(String value) {
+            addCriterion("code >", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("code >=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThan(String value) {
+            addCriterion("code <", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThanOrEqualTo(String value) {
+            addCriterion("code <=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLike(String value) {
+            addCriterion("code like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotLike(String value) {
+            addCriterion("code not like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIn(List<String> values) {
+            addCriterion("code in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotIn(List<String> values) {
+            addCriterion("code not in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeBetween(String value1, String value2) {
+            addCriterion("code between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotBetween(String value1, String value2) {
+            addCriterion("code not between", value1, value2, "code");
             return (Criteria) this;
         }
 

@@ -15,6 +15,8 @@ public class Resources extends BaseModel {
 
     private Integer sequence; /*排序号*/
 
+    private String code; /*模块code，权限控制*/
+
     private Integer type; /*资源类型(模块跟方法)*/
 
     private Integer creator; /*创建人*/
@@ -24,8 +26,6 @@ public class Resources extends BaseModel {
     private String retention; /*保留域*/
 
     private String ext; /*扩展*/
-    
-    private String state;
 
     public Integer getId() {
         return id;
@@ -75,6 +75,14 @@ public class Resources extends BaseModel {
         this.sequence = sequence;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
     public Integer getType() {
         return type;
     }
@@ -114,14 +122,4 @@ public class Resources extends BaseModel {
     public void setExt(String ext) {
         this.ext = ext == null ? null : ext.trim();
     }
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-    
-    
 }
