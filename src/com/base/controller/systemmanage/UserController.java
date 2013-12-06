@@ -21,8 +21,6 @@ public class UserController extends BaseController {
 	@Resource
 	private UserService userService;
 	
-	
-	
 	@RequestMapping(value="find")
 	@ResponseBody
 	public Object find(User user) {
