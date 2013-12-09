@@ -23,7 +23,7 @@
 				<td><form:select path="type" items="${resourcesType }" ></form:select> </td>
 			</tr>
 			<tr>
-				<td>排序号:</td>
+				<td>code:</td>
 				<td><form:input path="code" class="easyui-validatebox"  data-options="required:true" /></td>
 			</tr>
 			<tr>
