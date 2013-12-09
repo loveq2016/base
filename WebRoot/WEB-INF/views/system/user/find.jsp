@@ -22,11 +22,15 @@
 
  <div id="tbUser" style="padding:5px;height:auto">
     <div style="margin-bottom:5px">
-        <sec:authorize access="hasRole('ROLE_USER')">
+        <sec:authorize access="hasRole('USER_ADD')">
             <a href="javascript:void(0);" onclick="initAdd('${module }');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加">添加</a>
         </sec:authorize>
-        <a href="javascript:void(0);" onclick="initUpdate('${module }','execute/user/findById');" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑">编辑</a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole('${namespace }');" plain="true" title="分配角色">分配角色</a>
+        <sec:authorize access="hasRole('USER_UPDATE')">
+            <a href="javascript:void(0);" onclick="initUpdate('${module }','execute/user/findById');" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑">编辑</a>
+        </sec:authorize>
+        <sec:authorize access="hasRole('USER_ASSIGN_ROLE')">
+            <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole('${namespace }');" plain="true" title="分配角色">分配角色</a>
+        </sec:authorize>
     </div>
     <div id="${module }SearchDiv">
                      用户名: <input  style="width:80px" name="userName">
