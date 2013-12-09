@@ -10,4 +10,6 @@ public interface UserService extends BaseService<User, UserExample>, UserDetails
  
 	
 	public int insertUser(User user);
+	
+	public boolean isExist(String userName);
 }

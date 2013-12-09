@@ -7,6 +7,9 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.base.service.ServiceMapping;
 import com.util.http.HttpUtil;
@@ -53,7 +58,7 @@ public class BaseController {
 	protected final static String FAILURE_TEXT = "操作失败!";
 	
 	
-	/** RESTFUL URL  start */
+	/** RESTFUL URL  start *//*
 	
 	@RequestMapping(value="{modelName}", method = RequestMethod.POST) 
 	public @ResponseBody Object insert(@PathVariable("modelName") String modelName) {
@@ -88,7 +93,7 @@ public class BaseController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id+"");
 		return ServiceMapping.selectByIdMapping(map, getModelPackage(modelName));
-	}
+	}*/
 	
 	/** RESTFUL URL  end */
 	
@@ -341,4 +346,13 @@ public class BaseController {
 		editor = new CustomDateEditor(df, false);
 		binder.registerCustomEditor(Date.class, editor);
 	}
+	
+	class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+		protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {  
+	        String bodyOfResponse = "This should be application specific";  
+	        return handleExceptionInternal(ex, bodyOfResponse,  
+	          new HttpHeaders(), HttpStatus.CONFLICT, request);  
+	    } 
+	}
+	
 }

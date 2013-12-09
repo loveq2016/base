@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.base.controller.BaseController;
@@ -20,6 +21,16 @@ public class UserController extends BaseController {
 
 	@Resource
 	private UserService userService;
+	
+	@RequestMapping("showView")
+	public String showView(@RequestParam(value="action",defaultValue="1000") String action,ModelMap modelMap) {
+		if ("1000".equals(action)) {
+			return "system/user/show";
+		} else if ("1001".equals(action)) {
+			return "system/user/edit";
+		}
+		return "system/user/show";
+	}
 	
 	@RequestMapping(value="find")
 	@ResponseBody
@@ -42,11 +53,28 @@ public class UserController extends BaseController {
 	public Object save(User user) {
 		Map<String, Object> map = getSuccessResult();
 		if (user.getId() == null) {
-			userService.insert(user);
+			userService.insertUser(user);
 		} else {
 			userService.updateById(user);
 		}
 		return map;
 	}
 	
+	@RequestMapping(value="delete")
+	@ResponseBody
+	public Object delete(@RequestParam("id") Integer id) {
+		Map<String, Object> map = getSuccessResult();
+		userService.deleteById(id);
+		return map;
+	} 
+	
+	@RequestMapping(value="isExist")
+	@ResponseBody
+	public Object isExist(@RequestParam("userName") String userName) {
+		Map<String, Object> map = getSuccessResult();
+		if (userService.isExist(userName)) {
+			map = getFailureResult();
+		}
+		return map;
+	}
 }

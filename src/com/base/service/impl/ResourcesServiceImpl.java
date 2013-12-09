@@ -28,7 +28,7 @@ public class ResourcesServiceImpl extends
 	public List<Resources> selectByRoleIds(List<Integer> roleIds) {
 		ResourcesExample example = new ResourcesExample();
 		example.setDistinct(true);
-		example.setColumn(" r.id, r.name, r.link_url, r.parent_id, r.sequence, r.type");
+		example.setColumn(" r.id, r.name, r.link_url, r.parent_id, r.sequence,r.code, r.type");
 		example.setJoin(" as r left join tb_role_resources as rr on r.id = rr.resources_id ");
 		example.setOrderByClause(" r.sequence ");
 		

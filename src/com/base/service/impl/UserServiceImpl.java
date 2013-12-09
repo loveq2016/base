@@ -25,6 +25,7 @@ import com.base.service.ResourcesService;
 import com.base.service.RoleService;
 import com.base.service.UserService;
 import com.base.util.Config;
+import com.base.util.Constants;
 import com.util.http.HttpUtil;
 import com.util.md5.Md5Util;
 
@@ -42,7 +43,7 @@ public class UserServiceImpl extends
 	@Resource
 	private ResourcesService resourcesService;
 	
-	private final static Log log = LogFactory.getLog(UserServiceImpl.class);
+	private final static Log LOG = LogFactory.getLog(UserServiceImpl.class);
 	
 	@Resource
 	public void setUserMapper(UserMapper userMapper) {
@@ -53,7 +54,7 @@ public class UserServiceImpl extends
 	@Override
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException {
-		log.info("用户登录，用户名是===" + userName);
+		LOG.info("用户登录，用户名是===" + userName);
 		//1. 验证用户输入的验证码是否正确
 		User user = new User();
 		user.setUserName(userName);
@@ -67,44 +68,62 @@ public class UserServiceImpl extends
 				throw new AuthenticationServiceException(Config.PASSWORD_WRONG);
 			}
 			
-			//4. 用户名跟密码验证正确, 根据用户ID查找到该用户有那些角色
-			List<Role> roles = roleService.selectByUserId(user.getId());
-			List<Integer> roleIds = new ArrayList<Integer>();
-			
+			List<Resources> resourcess = null;
 			List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();//权限名称集合, 该用户有那些权限
 			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
 			auths.add(grantedAuthority);
-			for (Role role : roles) {
-				roleIds.add(role.getId());
-				grantedAuthority = new SimpleGrantedAuthority(role.getName());
-				auths.add(grantedAuthority);
-				log.debug("该用户的角色=====" +role.getName());
-			}
-			user.setAuthorities(auths);
 			
-			//5. 根据角色id, 查找到该角色可以访问那些资源
-			List<Resources> resourcess = resourcesService.selectByRoleIds(roleIds);
-			if (log.isDebugEnabled()) {
-				for (Resources resources : resourcess) {
-					log.debug("该用户能访问的模块=====" +resources.getName());
+			//4. 用户名跟密码验证正确, 根据用户ID查找到该用户有那些角色, 如果用户名是admin，可以访问所有资源
+			if (Constants.ADMIN.equals(userName)) {
+				LOG.info("admin可以访问所有资源");
+				resourcess = resourcesService.selectByExample(null);
+			} else {
+				List<Role> roles = roleService.selectByUserId(user.getId());
+				List<Integer> roleIds = new ArrayList<Integer>();
+				for (Role role : roles) {
+					roleIds.add(role.getId());
+					LOG.info("该用户的角色=====" +role.getName());
+				}
+				
+				if (roleIds != null && !roleIds.isEmpty()) {
+					//5. 根据角色id, 查找到该角色可以访问那些资源
+					resourcess = resourcesService.selectByRoleIds(roleIds);
 				}
 			}
-			user.setResourcess(resourcess);
+			if (resourcess != null && !resourcess.isEmpty()) {
+				for (Resources resources : resourcess) {
+					grantedAuthority = new SimpleGrantedAuthority(resources.getCode());
+					auths.add(grantedAuthority);
+					LOG.info("该用户能访问的模块=====" +resources.getName());
+				}
+				user.setResourcess(resourcess);
+				user.setAuthorities(auths);
+			}
 		}
 		return user;
 	}
  
 	public int insertUser(User user) {
-		
 		//插入用户前, 检查该用户名是否已经存在
+		if (isExist(user.getUserName())) {
+			LOG.error("不能注册,用户名已经存在,用户是====" + user.getUserName());
+			throw new RuntimeException();
+		} else {
+			return insert(user);
+		}
+	}
+
+	@Override
+	public boolean isExist(String userName) {
 		User checkUser = new User();
-		checkUser.setUserName(user.getUsername());
+		checkUser.setUserName(userName);
 		checkUser = selectByModel(checkUser);
 		if (checkUser != null) {
 			//存在直接抛出异常
-			throw new RuntimeException();
+			LOG.error("用户名已经存在,用户是====" + userName);
+			return true;
 		}
-		return 1;
+		return false;
 	}
 	
 }

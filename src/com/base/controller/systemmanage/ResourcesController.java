@@ -31,7 +31,7 @@ public class ResourcesController extends BaseController {
 	public Object find(Resources resources) {
 		Map<String, Object> map = getSuccessResult();
 		ResourcesExample example = new ResourcesExample();
-		example.setColumn("id, name, link_url, description, parent_id, sequence, type, creator, creation_time, (select count(*) from tb_resources as cr where cr.parent_id = r.id) as provisional");
+		example.setColumn("id, name, link_url,code, description, parent_id, sequence, type, creator, creation_time, (select count(*) from tb_resources as cr where cr.parent_id = r.id) as provisional");
 		example.setOrderByClause(" sequence  ");
 		example.setJoin(" as r ");
 		ResourcesExample.Criteria criteria = example.createCriteria();
