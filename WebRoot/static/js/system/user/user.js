@@ -15,3 +15,16 @@ function assignRole(namespace) {
 		}).dialog('open');
 	}
 }
+
+
+function isExist(_this) {
+	var $this = $(_this);
+	if ($this.validatebox("isValid")) {
+		var sendData = {userName: $this.val()};
+		ajaxPost("system/user/isExist",sendData,function (resultData) {
+			if (resultData.code != "200") {
+				alert("ok");
+			}
+		});
+	} 
+}

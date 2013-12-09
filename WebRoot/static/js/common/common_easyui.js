@@ -207,25 +207,29 @@ function showAlertMsg(msg, type){
 	$.messager.alert('系统提示',msg, type);
 }
 
-function addTab(subtitle, url, icon) {
-    if (!$('#maintabs').tabs('exists', subtitle)) {
+function addTab(_this) {
+	var $this = $(_this);
+	var title = $this.attr("title");
+    if (!$('#maintabs').tabs('exists', title)) {
     	//判断是否进行iframe方式打开tab，默认为href方式
-        if(url.indexOf('isIframe') != -1){
+    	var url = $this.attr("url");
+    	var icon = $this.attr("icon");
+    	if($this.attr('isIframe') == "true") {
             $('#maintabs').tabs('add', {
-                title : subtitle,
+                title : title,
                 content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
                 closable : true,
                 icon : icon
             });    
         } else {
             $('#maintabs').tabs('add', {
-                title : subtitle,
+                title : title,
                 href : url,
                 closable : true,
                 icon : icon
             });                        
         }
     } else {
-        $('#maintabs').tabs('select', subtitle);
+        $('#maintabs').tabs('select', title);
     }
 }
