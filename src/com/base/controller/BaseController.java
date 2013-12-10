@@ -7,20 +7,14 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.base.service.ServiceMapping;
 import com.util.http.HttpUtil;
@@ -297,9 +291,10 @@ public class BaseController {
 	 * 返回失败的标识方法
 	 * @return
 	 */
-	public Map<String, Object> getFailureResult() {
+	public static Map<String, Object> getFailureResult() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(code, HTTP_NO);
+		map.put(message, FAILURE_TEXT);
 		return map;
 	}  
 	
@@ -307,7 +302,7 @@ public class BaseController {
 	 * 返回失败的标识方法
 	 * @return
 	 */
-	public Map<String, Object> getFailureResult(String msg) {
+	public static Map<String, Object> getFailureResult(String msg) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(code, HTTP_NO);
 		map.put(message, msg);
@@ -318,7 +313,7 @@ public class BaseController {
 	 * 返回成功的标识方法
 	 * @return
 	 */
-	public Map<String, Object> getSuccessResult() {
+	public static Map<String, Object> getSuccessResult() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(code, HTTP_OK); 
 		map.put(message, SUCCESS_TEXT);
@@ -329,7 +324,7 @@ public class BaseController {
 	 * 返回成功的标识方法
 	 * @return
 	 */
-	public Map<String, Object> getSuccessResult(String msg) {
+	public static Map<String, Object> getSuccessResult(String msg) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(code, HTTP_OK);  
 		map.put(message, msg);
@@ -345,14 +340,6 @@ public class BaseController {
 		df = new SimpleDateFormat("yyyy-MM-dd");
 		editor = new CustomDateEditor(df, false);
 		binder.registerCustomEditor(Date.class, editor);
-	}
-	
-	class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-		protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {  
-	        String bodyOfResponse = "This should be application specific";  
-	        return handleExceptionInternal(ex, bodyOfResponse,  
-	          new HttpHeaders(), HttpStatus.CONFLICT, request);  
-	    } 
 	}
 	
 }

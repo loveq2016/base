@@ -15,7 +15,10 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value="login")
-	public String login() {
+	public String login(String aa) {
+		if ("aa".equals(aa)) {
+			throw new RuntimeException("我测试");
+		}
 		return "login";
 	}
 	
