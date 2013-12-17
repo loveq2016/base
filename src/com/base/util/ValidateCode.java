@@ -81,7 +81,7 @@ public class ValidateCode extends HttpServlet {
 			}
 
 			// 将认证码存入SESSION 
-			request.getSession().setAttribute(Config.VERIFYCODE, sb.toString());
+			request.getSession().setAttribute(Constants.VERIFYCODE, sb.toString());
 			// 图象生效 
 			g.dispose();
 

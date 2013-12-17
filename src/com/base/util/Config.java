@@ -1,46 +1,54 @@
 package com.base.util;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public final class Config {
 
-	private static Properties config = null;
+	private static Properties defaultConfig = null;
+	
+	private static Map<String, Properties>  configs = new HashMap<String, Properties>();
 	
 	static {
 		try {
-			config = PropertiesLoaderUtils.loadAllProperties("config.properties");
+			defaultConfig = PropertiesLoaderUtils.loadAllProperties("config.properties");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static String VERIFYCODE = "verifyCode"; //验证码放在session的key
 	
-	public static String USER = "user"; //user放在session的key
-	  
-	public static String USER_NAME_DOES_NOT_EXIST = "用户名不存在!";
-	
-	public static String PASSWORD_WRONG  = "您输入的密码和账户名不匹配，请重新输入!";
-
-	public static String INVALID_REQUEST = "invalid request";
-	
-	public static String SUCCESS = "操作成功!";
-	
-	public static String FAILURE = "操作失败!";
 	/** 
 	 * 取配置文件中的值 如果没有 就 返回""
 	 * @param key
 	 * @return
 	 */
 	public static String getValue(String key) {
-		return config.getProperty(key, "");
+		return defaultConfig.getProperty(key, "");
+	}
+	
+	public static String getValue(String fileName, String key) {
+		Properties properties = configs.get(fileName);
+		if (properties == null) {
+			System.out.println("dd");
+			try {
+				properties = PropertiesLoaderUtils.loadAllProperties(fileName+".properties");
+				configs.put(fileName, properties);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return properties.getProperty(key, "");
 	}
 	
 	public static void main(String[] args) {
 		System.out.println(Config.getValue("fileSavePath"));
+		System.out.println(Config.getValue("jdbc","driverClassName"));
+		System.out.println(Config.getValue("jdbc","driverClassName"));
 	}
 }
 
