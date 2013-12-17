@@ -15,13 +15,14 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler
 	protected void handleConflict(RuntimeException e, ServletWebRequest request) {  
-        AjaxOutPut.renderText(request.getResponse(), JacksonUtil.writeValueAsString(BaseController.getFailureResult()));
+        AjaxOutPut.renderText(request.getResponse(), JacksonUtil.writeValueAsString(BaseController.getFailureResult(e.getMessage())));
     } 
 	
 	
 	protected boolean isAjaxRequest(HttpServletRequest req) {
 	    String requestType = req.getHeader("X-Requested-With"); 
-	    if ("XMLHttpRequest".equals(requestType)) { 
+	    String ajax = req.getParameter("ajax");
+	    if ("XMLHttpRequest".equals(requestType) || "ajax".equals(ajax)) { 
 	        return true; 
 	    } else { 
 	        return false; 
