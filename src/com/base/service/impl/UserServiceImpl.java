@@ -61,11 +61,11 @@ public class UserServiceImpl extends
 		user = selectByModel(user);
 		//2. 检查用户名是否在数据库中存在
 		if (user == null) {
-			throw new AuthenticationServiceException(Config.USER_NAME_DOES_NOT_EXIST);
+			throw new AuthenticationServiceException(Constants.USER_NAME_DOES_NOT_EXIST);
 		} else {
 			//3. 用户存在,查看密码是否正确
 			if (!user.getPassword().equals(Md5Util.getMD5(HttpUtil.getRequest().getParameter("password")))) {
-				throw new AuthenticationServiceException(Config.PASSWORD_WRONG);
+				throw new AuthenticationServiceException(Constants.PASSWORD_WRONG);
 			}
 			
 			List<Resources> resourcess = null;
