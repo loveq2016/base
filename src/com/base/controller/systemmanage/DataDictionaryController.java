@@ -17,6 +17,7 @@ import com.base.model.DataDictionary;
 import com.base.model.DataDictionaryExample;
 import com.base.service.DataDictionaryService;
 import com.base.util.Config;
+import com.base.util.Constants;
 import com.util.jackson.JacksonUtil;
 import com.util.validator.ValidatorUtil;
 
@@ -54,7 +55,7 @@ public class DataDictionaryController extends BaseController {
 		Map<String, Object> map = null;
 		//1. 验证数据的有效性
 		if (ValidatorUtil.validateAll(dataDictionary)) {
-			map = getSuccessResult(Config.SUCCESS);
+			map = getSuccessResult(Constants.SUCCESS);
 			//2. 验证数据用过，如果id存在就更新，否则就保存数据
 			if (dataDictionary.getId() != null) {
 				dataDictionaryService.updateById(dataDictionary);
@@ -63,8 +64,8 @@ public class DataDictionaryController extends BaseController {
 			}
 		} else {
 			//数据有错误，返回错误提示信息
-			map = getFailureResult(Config.FAILURE);
-			map.put(message, Config.INVALID_REQUEST);
+			map = getFailureResult(Constants.FAILURE);
+			map.put(message, Constants.INVALID_REQUEST);
 		}
 		return map;
 	}
