@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="<c:url value="/static/js/jqueryEasyui/themes/icon.css"></c:url>">
 <script type="text/javascript" src="<c:url value="/static/js/jquery/jquery-1.7.2.min.js"></c:url>"> </script>
 <script type="text/javascript" src="<c:url value="/static/js/common/common.js"></c:url>"> </script>
-<script type="text/javascript" src="<c:url value="/static/js/jquery/jquery.validate.min.js"></c:url>"> </script>
+<script type="text/javascript" src="<c:url value="/static/js/jquery/jquery.validate.js"></c:url>"> </script>
 <script type="text/javascript" src="<c:url value="/static/js/jquery/jquery.metadata.js"></c:url>"> </script>
 <script type="text/javascript" src="<c:url value="/static/js/common/common_easyui.js"></c:url>"> </script>
 <script type="text/javascript" src="<c:url value="/static/js/common/common_jquery.js"></c:url>"> </script>
