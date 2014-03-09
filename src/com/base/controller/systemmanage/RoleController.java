@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.base.controller.BaseController;
@@ -14,7 +15,6 @@ import com.base.model.UserRoleExample;
 import com.base.service.RoleService;
 import com.base.service.UserRoleService;
 import com.util.pager.Pager;
-import com.util.string.StringUtil;
 
 @Controller
 @RequestMapping("system/role/")
@@ -26,6 +26,30 @@ public class RoleController extends BaseController {
 	@Resource
 	private UserRoleService userRoleService;
  
+	/**
+	 * 显示视图 
+	 * @param action 当前的操作，  1000 代表是 显示 角色 数据集合， 1001是添加角色，1002是修改角色
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping("showView")
+	public String showView(@RequestParam(value="action",defaultValue="1000") String action,ModelMap modelMap) {
+		if ("1000".equals(action)) {
+			return "system/role/show";
+		} else if ("1001".equals(action)) {
+			modelMap.put("user", new Role());
+			return "system/role/edit";
+		} else if ("1002".equals(action)) {
+			if (getId() != null) {
+				Role role = roleService.selectById(getId());
+				modelMap.put("role", role);
+			}
+			return "system/role/edit";
+		} else {
+			return null;
+		}
+	}
+	
 	@RequestMapping(value = "find")
 	@ResponseBody
 	public Object find(Role role) {

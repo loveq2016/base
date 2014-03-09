@@ -131,6 +131,14 @@ public class BaseController {
 		return 10;
 	}
 	
+	protected Integer getId() {
+		String id = getRequest().getParameter("id");
+		if (StringUtil.isInteger(id)) {
+			return Integer.valueOf(id);
+		}
+		return null;
+	}
+	
 	/**
 	 * 这个方法适合所有的页面跳转，前提是页面不需要加载数据中的数据，或者是前台通过ajax加载
 	 * 都这个通过这个方法跳转

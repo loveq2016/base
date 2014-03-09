@@ -13,16 +13,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.base.service.impl.BaseServiceImpl;
 import com.base.model.Resources;
 import com.base.model.Role;
 import com.base.model.User;
 import com.base.model.UserExample;
+import com.base.model.UserRole;
+import com.base.model.UserRoleExample;
 import com.base.dao.impl.UserMapperImpl;
 import com.base.dao.UserMapper;
 import com.base.service.ResourcesService;
 import com.base.service.RoleService;
+import com.base.service.UserRoleService;
 import com.base.service.UserService;
 import com.base.util.Config;
 import com.base.util.Constants;
@@ -42,6 +46,9 @@ public class UserServiceImpl extends
 	
 	@Resource
 	private ResourcesService resourcesService;
+	
+	@Resource
+	private UserRoleService userRoleService;
 	
 	private final static Log LOG = LogFactory.getLog(UserServiceImpl.class);
 	
@@ -107,7 +114,7 @@ public class UserServiceImpl extends
 		//插入用户前, 检查该用户名是否已经存在
 		if (isExist(user.getUserName())) {
 			LOG.error("不能注册,用户名已经存在,用户是====" + user.getUserName());
-			throw new RuntimeException();
+			throw new RuntimeException("该用户名可以注册!");
 		} else {
 			return insert(user);
 		}
@@ -126,4 +133,14 @@ public class UserServiceImpl extends
 		return false;
 	}
 	
+	@Transactional
+	public int delete(Integer id) {
+		
+		UserRoleExample example = new UserRoleExample();
+		UserRoleExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(id);
+		
+		userRoleService.deleteByExample(example);
+		return deleteById(id);
+	}
 }
