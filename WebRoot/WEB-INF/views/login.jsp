@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@include file="/WEB-INF/views/common/taglibs.jsp" %>
+<!DOCTYPE html PUBLIC>
 <html>
   <head>
     <title>系统登录</title>
@@ -47,7 +48,10 @@
     
     <c:if test="${!empty param.login_error}">
          <script type="text/javascript">
-             showMsg('<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message }"></c:out>');
+             var message = '<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message }"></c:out>';
+             if (isNotEmpty(message)) {
+            	 showMsg(message);
+             }
          </script>
      </c:if>
   </body>

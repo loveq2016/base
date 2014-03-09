@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@include file="/WEB-INF/views/common/taglibs.jsp" %>
+<!DOCTYPE html PUBLIC>
 <html>
 <head>
 <title>系统首页</title>
@@ -34,7 +35,7 @@
 							<c:forEach items="${SPRING_SECURITY_CONTEXT.authentication.principal.resourcess}" var="childItem">
 								<c:if test="${item.id eq childItem.parentId}">
 									<li>
-										<div onclick="addTab(this)" isIframe="true" title="${childItem.name}"  url="${childItem.linkUrl}" iconCls="pictures">
+										<div onclick="addTab(this);" isIframe="true" title="${childItem.name}"  url="${childItem.linkUrl}" iconCls="pictures">
 											<a class="${childItem.name}" href="javascript:void(0);"> <span class="icon pictures">&nbsp;</span> <span class="nav">${childItem.name}</span>
 											</a>
 										</div>
