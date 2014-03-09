@@ -1,21 +1,4 @@
 /**
- * 清空表单数据
- * @param formName
- */
-function resetForm(module) {
-	var $form = $("#"+module+"EditForm"); 
-	$form.form('reset');
-	$(".validatebox-invalid").each(function(i){
-		$(this).removeClass("validatebox-invalid"); 
-	});
-	$form.find("input[type=hidden]").each(function(i){
-		if (!$(this).is('.combo-value')) {
-			$(this).val("");
-		} 
-	});
-}
-
-/**
  * 格式化 日期类型的 函数
  * @param data
  * @returns
@@ -27,25 +10,22 @@ function dateFormatter(data) {
 	return dateFormat(data, null);
 }
 
-/**
- * 初始化添加的弹出层，如果不例外，所有的添加窗口都必须调用这个方法 
- * @param module 模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
- */
-function initAdd(module) {
-	resetForm(module);
-    $("#"+module+"EditDiv").dialog({
-        title: '添加',
-        modal: true
-    }).dialog('open');
-}
-
-
-function common_add(title, url, width, height) {
+function add(url, title, width, height) {
+	if (isEmpty(title)) {
+		title = "添加";
+	}
 	openDialog(title, url, width, height);
 }
 
-function common_update(title, url, width, height) {
-	openDialog(title, url, width, height);
+function update(url, title, width, height) {
+	var row = getSelected();
+	if (row) {
+		if (isEmpty(title)) {
+			title = "修改";
+		} 
+		url += "&id="+row.id; 
+		openDialog(title, url, width, height);
+	}
 }
 
 function openDialog(title, url, width, height) {
@@ -63,34 +43,17 @@ function openDialog(title, url, width, height) {
         href:url
     }).dialog('open');
 }
-/**
- * 初始化修改的弹出层，如果不例外，所有的修改窗口都必须调用这个方法 
- * @param module 模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
- * @param url 数据的后台加载地址
- */
-function initUpdate(module,url) {
-    var row = getSelected(module);
-    if (row) {
-    	$.post(url,{id:row.id},function (reslutData) {
-			$("#"+module+"EditForm").form('load',reslutData);        // load from URL
-            $("#"+module+"EditDiv").dialog({
-                title: '修改',
-                modal: true
-            }).dialog('open');
-    	},"json");
-    }
-}
 
 /**
  * 更新和添加提交表单，如果不例外，所有的更新和添加窗口都必须调用这个方法
- * @param module  模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
+ * @param namespace  模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
  */
-function submitForm(module) {
-    var $form = $("#"+module+"EditForm");
+function submitForm(namespace) {
+    var $form = $("#"+namespace+"EditForm");
     if ($form.form("validate")) {
-    	var $grid = $("#"+module+"Grid");
+    	var $grid = $("#"+namespace+"Grid");
     	if ($grid.is(".easyui-treegrid")) {
-    		var row = getSelected(module);
+    		var row = getSelected(namespace);
     		if (row) {
     			$form.find("input[name=parentId]").val(row.id);
     		}
@@ -99,7 +62,7 @@ function submitForm(module) {
             if (isSuccess(resultData)) {
                 $form.parents(".easyui-dialog").dialog('close');
                 if ($grid.is(".easyui-treegrid")) {
-                	var row = getSelected(module);
+                	var row = getSelected(namespace);
                 	if (row && row.parentId != "-1") {
                 		$grid.treegrid('reload', row.parentId);
                 		row.state = "open";
@@ -116,12 +79,12 @@ function submitForm(module) {
 
 /**
  * 通过id删除数据，如果不例外，所有的通过id删除数据都必须调用这个方法
- * @param module
+ * @param namespace
  * @param url
  */
-function delById(module,url, id) {
+function delById(url, id) {
 	if (isEmpty(id)) {
-		var row = getSelected(module);
+		var row = getSelected();
 		id = row.id;
 	}
     if (!isEmpty(id)) {
@@ -129,7 +92,7 @@ function delById(module,url, id) {
             if (r){
             	$.post(url,{id:id},function (resultData) {
             		if (isSuccess(resultData)) {
-            			$("#"+module+"Grid").datagrid('reload');
+            			getGrid().datagrid('reload');
             		}
     	    	},"json");
             }
@@ -139,19 +102,20 @@ function delById(module,url, id) {
 
 /**
  * 搜索数据，所有搜索都必须调用这个方法
- * @param module
+ * @param namespace
  */
-function searchData(module) {
-	var $grid = $("#"+module+"Grid");
+function searchData() {
+	var $grid = getGrid();
 	var queryParams = $grid.datagrid('options').queryParams;
-	$("#"+module+"SearchDiv").find('*').each(function() {
+	var $search = getSearch();
+	$search.find('*').each(function() {
         queryParams[$(this).attr('name')] = $(this).val();
 	});
 	$grid.datagrid({pageNumber:1}).datagrid("reload");
 }
 
-function getSelected(namespace) {
-	var $grid = $("#"+namespace+"Grid");
+function getSelected() {
+	var $grid = getGrid();
 	if ($grid.is(".easyui-treegrid")) {
 		return $grid.treegrid('getSelected');
 	} else {
@@ -163,8 +127,8 @@ function getSelected(namespace) {
 	}
 }
 
-function selectRow(module, index) {
-	$("#"+module+"Grid").datagrid('selectRow', index);
+function selectRow(namespace, index) {
+	$("#"+namespace+"Grid").datagrid('selectRow', index);
 }
 
 /**
@@ -232,4 +196,17 @@ function addTab(_this) {
     } else {
         $('#maintabs').tabs('select', title);
     }
+}
+
+
+function getGrid() {
+	return $("#"+getNamespace()+"Grid");
+}
+
+function getNamespace() {
+	return $("#namespace").val();
+}
+
+function getSearch() {
+	return $("#"+getNamespace()+"SearchDiv");
 }
