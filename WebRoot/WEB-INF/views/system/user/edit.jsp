@@ -59,5 +59,5 @@
 	</form:form>
 </div>
 <div style="text-align: center; padding: 5px">
-	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('user')">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#${module }EditForm').form('reset');">重置</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('user')">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#userEditForm').form('reset');">重置</a>
 </div>
