@@ -22,16 +22,13 @@
 
 	<div id="tb" style="padding: 5px; height: auto">
 		<div style="margin-bottom: 5px">
-			<a href="javascript:void(0);" onclick="addModel('Role');" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a> <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑"></a> <a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignResources('${namespace }');" plain="true" title="分配访问资源">分配访问资源</a>
+			<a href="javascript:void(0);" onclick="add('system/role/showView?action=1001','添加用户',400,420);" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加">添加</a> 
+			<a href="javascript:void(0);" onclick="update('system/role/showView?action=1002','修改用户',400,420);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="编辑">编辑</a>
+			<a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignResources('${namespace }');" plain="true" title="分配访问资源">分配访问资源</a>
 		</div>
-		<div>
-			Date From: <input class="easyui-datebox" style="width: 80px"> To: <input class="easyui-datebox" style="width: 80px" type="text"> Language: <select class="easyui-combobox" panelHeight="auto" style="width: 100px">
-				<option value="java">Java</option>
-				<option value="c">C</option>
-				<option value="basic">Basic</option>
-				<option value="perl">Perl</option>
-				<option value="python">Python</option>
-			</select> <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+		<div id="${namespace }SearchDiv">
+			角色名: <input style="width: 80px" name="name"> 
+			<a href="javascript:void(0);" onclick="searchData();" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 		</div>
 	</div>
 	<script type="text/javascript" src="static/js/system/role/role.js"></script>
