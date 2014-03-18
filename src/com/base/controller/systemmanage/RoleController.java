@@ -16,6 +16,12 @@ import com.base.service.RoleService;
 import com.base.service.UserRoleService;
 import com.util.pager.Pager;
 
+/**
+ * 角色管理 小模块 Controller
+ * @author willenfoo
+ *
+ */
+
 @Controller
 @RequestMapping("system/role/")
 public class RoleController extends BaseController {
@@ -50,6 +56,11 @@ public class RoleController extends BaseController {
 		}
 	}
 	
+	/**
+	 *  查询角色
+	 * @param role
+	 * @return
+	 */
 	@RequestMapping(value = "find")
 	@ResponseBody
 	public Object find(Role role) {
@@ -58,13 +69,17 @@ public class RoleController extends BaseController {
 		example.setOrderByClause(" id desc ");
 		RoleExample.Criteria criteria = example.createCriteria();
 
-		Pager pager = roleService.selectByPager(example, getOffset() - 1,
-				getPageSize());
+		Pager pager = roleService.selectByPager(example, getOffset() - 1, getPageSize());
 		map.put(total, pager.getTotal());
 		map.put(rows, pager.getList());
 		return map;
 	}
 
+	/**
+	 * 保存角色，id存在时更新，否则插入
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "save")
 	@ResponseBody
 	public Object save(Role role) {

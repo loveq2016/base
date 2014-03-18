@@ -51,6 +51,11 @@ public class UserController extends BaseController {
 		}
 	}
 	
+	/**
+	 * 查找用户 
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value="find")
 	@ResponseBody
 	public Object find(User user) {
@@ -77,6 +82,11 @@ public class UserController extends BaseController {
 		return map;
 	}
 	
+	/**
+	 * 保存用户，id存在时更新，否则插入
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value="save")
 	@ResponseBody
 	public Object save(User user) {
@@ -89,6 +99,11 @@ public class UserController extends BaseController {
 		return map;
 	}
 	
+	/**
+	 * 删除用户
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
 	public Object delete(@RequestParam("id") Integer id) {
@@ -97,6 +112,11 @@ public class UserController extends BaseController {
 		return map;
 	} 
 	
+	/**
+	 * 判断用户名是否存在
+	 * @param userName
+	 * @return
+	 */
 	@RequestMapping(value="isExist")
 	@ResponseBody
 	public Object isExist(@RequestParam("userName") String userName) {
