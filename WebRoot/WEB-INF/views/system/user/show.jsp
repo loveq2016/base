@@ -7,9 +7,7 @@
 <%@include file="../../common/common.jsp" %>
 </head>
 <body>
-    <c:set var="namespace" value="user"></c:set>
-    <input type="hidden" id="namespace" value="${namespace }"/>
-	<table class="easyui-datagrid" fit="true" style="height: 515px;" url="<c:url value="/system/user/find"> </c:url>" id="${namespace }Grid"  title="用户数据" data-options="onDblClickCell: function(index,field,value){initUpdate('${module }','execute/user/findById');}" singleSelect="true" rownumbers="true" pagination="true" toolbar="#tbUser">
+	<table class="easyui-datagrid" fit="true" style="height: 515px;" url="<c:url value="/system/user/find"> </c:url>" id="grid"  title="用户数据" data-options="onDblClickCell: function(index,field,value){initUpdate('${module }','execute/user/findById');}" singleSelect="true" rownumbers="true" pagination="true" toolbar="#tbUser">
 		<thead>
 			<tr>
 				<th field="id" hidden="true">id</th>
@@ -37,7 +35,7 @@
 				<a href="javascript:void(0);" class="easyui-linkbutton" onclick="assignRole();" plain="true" title="分配角色">分配角色</a>
 			</sec:authorize>
 		</div>
-		<div id="${namespace }SearchDiv">
+		<div id="searchDiv">
 			用户名: <input style="width: 80px" name="userName"> 年龄: <input name="age" style="width: 60px" class="easyui-numberbox" data-options="required:false"> 到 <input name="provisional" style="width: 60px" class="easyui-numberbox" data-options="required:false">之间 性别: <select class="easyui-combobox" name="gender">
 				<option value="男">男</option>
 				<option value="女">女</option>

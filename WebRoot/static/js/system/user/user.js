@@ -1,6 +1,6 @@
 
 function userAction(value,row,index) {
-	return "<a href='javascript:void(0);' onclick='delById(\"system/user/delete\","+row.id+");' class='easyui-linkbutton' iconCls='icon-cut' plain='true'>删除</a>";
+	return "<a href='javascript:void(0);' onclick='delById(\"system/user/delete\","+row.id+");'>删除</a>";
 }
 
 

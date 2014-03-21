@@ -44,16 +44,20 @@ function openDialog(title, url, width, height) {
     }).dialog('open');
 }
 
+function resetForm() {
+	getForm().form('reset');
+}
+
 /**
  * 更新和添加提交表单，如果不例外，所有的更新和添加窗口都必须调用这个方法
  * @param namespace  模块命，比如user模块，就传user,form跟dialog的id命名方法必须规范
  */
-function submitForm(namespace) {
-    var $form = $("#"+namespace+"EditForm");
+function submitForm() {
+    var $form = getForm();
     if ($form.form("validate")) {
-    	var $grid = $("#"+namespace+"Grid");
+    	var $grid = getGrid();
     	if ($grid.is(".easyui-treegrid")) {
-    		var row = getSelected(namespace);
+    		var row = getSelected();
     		if (row) {
     			$form.find("input[name=parentId]").val(row.id);
     		}
@@ -62,7 +66,7 @@ function submitForm(namespace) {
             if (isSuccess(resultData)) {
                 $form.parents(".easyui-dialog").dialog('close');
                 if ($grid.is(".easyui-treegrid")) {
-                	var row = getSelected(namespace);
+                	var row = getSelected();
                 	if (row && row.parentId != "-1") {
                 		$grid.treegrid('reload', row.parentId);
                 		row.state = "open";
@@ -128,7 +132,7 @@ function getSelected() {
 }
 
 function selectRow(namespace, index) {
-	$("#"+namespace+"Grid").datagrid('selectRow', index);
+	getGrid().datagrid('selectRow', index);
 }
 
 /**
@@ -198,15 +202,14 @@ function addTab(_this) {
     }
 }
 
-
-function getGrid() {
-	return $("#"+getNamespace()+"Grid");
+function getForm() {
+	return $("#form");
 }
 
-function getNamespace() {
-	return $("#namespace").val();
+function getGrid() {
+	return $("#grid");
 }
 
 function getSearch() {
-	return $("#"+getNamespace()+"SearchDiv");
+	return $("#searchDiv");
 }

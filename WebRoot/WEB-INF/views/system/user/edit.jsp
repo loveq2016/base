@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="../../common/taglibs.jsp" %> 
 <div style="padding: 10px 0 10px 60px">
-	<form:form id="userEditForm" method="post" action="system/user/save" modelAttribute="user" >
+	<form:form id="form" method="post" action="system/user/save" modelAttribute="user" >
 		<table>
 			<tr>
 				<td>用户名:</td>
@@ -59,5 +59,5 @@
 	</form:form>
 </div>
 <div style="text-align: center; padding: 5px">
-	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('user')">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#userEditForm').form('reset');">重置</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm();">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="resetForm();">重置</a>
 </div>
