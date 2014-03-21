@@ -15,6 +15,7 @@ import com.base.model.UserRoleExample;
 import com.base.service.RoleService;
 import com.base.service.UserRoleService;
 import com.util.pager.Pager;
+import com.util.string.StringUtil;
 
 /**
  * 角色管理 小模块 Controller
@@ -43,7 +44,7 @@ public class RoleController extends BaseController {
 		if ("1000".equals(action)) {
 			return "system/role/show";
 		} else if ("1001".equals(action)) {
-			modelMap.put("user", new Role());
+			modelMap.put("role", new Role());
 			return "system/role/edit";
 		} else if ("1002".equals(action)) {
 			if (getId() != null) {
@@ -68,7 +69,9 @@ public class RoleController extends BaseController {
 		RoleExample example = new RoleExample();
 		example.setOrderByClause(" id desc ");
 		RoleExample.Criteria criteria = example.createCriteria();
-
+		if (StringUtil.isNotEmpty(role.getName())) {
+			criteria.andNameLike("%"+role.getName().trim()+"%");
+		}
 		Pager pager = roleService.selectByPager(example, getOffset() - 1, getPageSize());
 		map.put(total, pager.getTotal());
 		map.put(rows, pager.getList());
@@ -91,6 +94,19 @@ public class RoleController extends BaseController {
 		}
 		return map;
 	}
+	
+	/**
+	 * 删除用户
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="delete")
+	@ResponseBody
+	public Object delete(@RequestParam("id") Integer id) {
+		Map<String, Object> map = getSuccessResult();
+		roleService.delete(id);
+		return map;
+	} 
 
 	@RequestMapping(value = "delUserRole")
 	@ResponseBody

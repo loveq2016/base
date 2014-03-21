@@ -8,4 +8,6 @@ import com.base.service.BaseService;
 
 public interface RoleService extends BaseService<Role, RoleExample> {
 	public List<Role> selectByUserId(Integer userId);
+
+	public int delete(Integer id);
 }

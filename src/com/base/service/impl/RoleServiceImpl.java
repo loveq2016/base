@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import com.base.service.impl.BaseServiceImpl;
 import com.base.model.Role;
 import com.base.model.RoleExample;
+import com.base.model.UserRoleExample;
 import com.base.dao.impl.RoleMapperImpl;
 import com.base.dao.RoleMapper;
 import com.base.service.RoleService;
+import com.base.service.UserRoleService;
 
 @Service("roleService")
 public class RoleServiceImpl extends
@@ -18,6 +20,9 @@ public class RoleServiceImpl extends
 	
 	private RoleMapper roleMapper;
 
+	@Resource
+	private UserRoleService userRoleService;
+	
 	@Resource
 	public void setRoleMapper(RoleMapper roleMapper) {
 		this.roleMapper = roleMapper;
@@ -32,5 +37,15 @@ public class RoleServiceImpl extends
 		RoleExample.Criteria roleCriteria = roleExample.createCriteria();
 		roleCriteria.addCriterion(" ur.user_id = ", userId, "user_id");
 		return selectByExample(roleExample);
+	}
+
+	@Override
+	public int delete(Integer id) {
+		UserRoleExample example = new UserRoleExample();
+		UserRoleExample.Criteria criteria = example.createCriteria();
+		criteria.andRoleIdEqualTo(id);
+		
+		userRoleService.deleteByExample(example);
+		return deleteById(id);
 	}
 }
