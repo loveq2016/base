@@ -4,13 +4,13 @@
 	xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="E:/WillenFoo/SoftwareRelated/DevelopmentSummary/MyFramework/base/WebRoot/WEB-INF/classes">
+		<dir name="E:/workspace/base/build/classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="E:/WillenFoo/SoftwareRelated/DevelopmentSummary/MyFramework/base/WebRoot">
+			<dir name="E:/workspace/base/WebRoot">
 			</dir>
 		</link>
 	</web>
