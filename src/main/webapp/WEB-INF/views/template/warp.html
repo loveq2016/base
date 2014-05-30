@@ -1,0 +1,22 @@
+<#macro static_url>${request.contextPath}</#macro> 
+<#macro js_url path><script type="text/javascript" src="${path}"></script></#macro> 
+<#macro css_url path><link rel="stylesheet" href="${path}"></#macro> 
+
+<#macro html_header title>
+	<!DOCTYPE html PUBLIC>
+	<html>
+	<head>
+	<base href="<@static_url />">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>${title}</title>
+	</head>
+	<body>
+</#macro>
+
+	<h1>Welcome ${user!""}!</h1>
+	<@static_url />
+	
+<#macro html_footer)>	
+	</body>
+	</html>
+</#macro>
