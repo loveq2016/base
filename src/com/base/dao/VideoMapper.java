@@ -1,1 +1,0 @@
-package  com.base.dao;import com.base.model.Video;import com.base.model.VideoExample;import com.base.dao.BaseDao;public interface VideoMapper extends BaseDao<Video, VideoExample> {}

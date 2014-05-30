@@ -1,1 +1,0 @@
-package  com.base.service;import com.base.model.AuthoritiesResources;import com.base.model.AuthoritiesResourcesExample;import com.base.service.BaseService;public interface AuthoritiesResourcesService extends BaseService<AuthoritiesResources, AuthoritiesResourcesExample> {}
