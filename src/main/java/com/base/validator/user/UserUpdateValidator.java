@@ -3,7 +3,6 @@ package com.base.validator.user;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.base.enums.user.Gender;
 import com.base.model.User;
 import com.base.validator.BaseValidator;
 
