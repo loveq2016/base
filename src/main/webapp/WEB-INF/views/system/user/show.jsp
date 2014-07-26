@@ -58,5 +58,6 @@
 	 
 	<script type="text/javascript" src="<c:url value="/static/js/system/user/user.js"></c:url>"></script>
 	<script type="text/javascript" src="static/js/common/validatebox_rules.js"> </script>
+	<script type="text/javascript" src="static/js/common/enterSearch.js"> </script>
 </body>
 </html>

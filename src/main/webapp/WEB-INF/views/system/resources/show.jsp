@@ -41,5 +41,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="static/js/system/resources/resources.js"></script>
+	<script type="text/javascript" src="static/js/common/enterSearch.js"> </script>
 </body>
 </html>

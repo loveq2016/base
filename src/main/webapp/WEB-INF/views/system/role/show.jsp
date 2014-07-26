@@ -40,5 +40,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="static/js/system/role/role.js"></script>
+	<script type="text/javascript" src="static/js/common/enterSearch.js"> </script>
 </body>
 </html>
