@@ -26,7 +26,7 @@
 			<!-- 防止第二次登录 如果想让第一次登录失效第二次登录启用则不要配置error-if-maximum-exceeded="true" -->
 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
 		</session-management>  
-        
+           
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 
 		<!-- 登录页面 -->
