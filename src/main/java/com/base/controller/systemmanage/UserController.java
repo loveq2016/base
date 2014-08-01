@@ -85,7 +85,7 @@ public class UserController extends BaseController {
 					modelMap.put("user", user);
 				} catch (Exception e) {
 					e.printStackTrace();
-					LOG.error(Constants.DB_ERROR_TEXT);
+					LOG.error(Constants.DB_ERROR_TEXT, e);
 					throw new RuntimeException(Constants.DB_ERROR_TEXT);
 				}
 			}  
@@ -135,9 +135,9 @@ public class UserController extends BaseController {
 			pager = userService.selectByPager(example, getOffset()-1, getPageSize());
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
-		}
+		} 
 		
 		List<User> list = (List<User>)pager.getList();
 		
@@ -169,7 +169,7 @@ public class UserController extends BaseController {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -193,7 +193,7 @@ public class UserController extends BaseController {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				LOG.error(Constants.DB_ERROR_TEXT);
+				LOG.error(Constants.DB_ERROR_TEXT, e);
 				throw new RuntimeException(Constants.DB_ERROR_TEXT);
 			}
 			return map;
@@ -213,7 +213,7 @@ public class UserController extends BaseController {
 			userService.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -234,7 +234,7 @@ public class UserController extends BaseController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -275,7 +275,7 @@ public class UserController extends BaseController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;

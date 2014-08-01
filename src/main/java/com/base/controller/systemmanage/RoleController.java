@@ -50,7 +50,7 @@ public class RoleController extends BaseController {
 					modelMap.put("role", role);
 				} catch (Exception e) {
 					e.printStackTrace();
-					LOG.error(Constants.DB_ERROR_TEXT);
+					LOG.error(Constants.DB_ERROR_TEXT, e);
 					throw new RuntimeException(Constants.DB_ERROR_TEXT);
 				}
 			}
@@ -80,7 +80,7 @@ public class RoleController extends BaseController {
 			pager = roleService.selectByPager(example, getOffset() - 1, getPageSize());
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		map.put(total, pager.getTotal());
@@ -101,7 +101,7 @@ public class RoleController extends BaseController {
 			roleService.insert(role);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -122,7 +122,7 @@ public class RoleController extends BaseController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -141,7 +141,7 @@ public class RoleController extends BaseController {
 			roleService.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -166,7 +166,7 @@ public class RoleController extends BaseController {
 			userRoleService.deleteByExample(example);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -185,7 +185,7 @@ public class RoleController extends BaseController {
 			map.put(rows,roleService.selectByUserId(userId));
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;

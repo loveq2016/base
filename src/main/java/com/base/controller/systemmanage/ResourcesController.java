@@ -46,7 +46,7 @@ public class ResourcesController extends BaseController {
 					modelMap.put("resources", resources);
 				} catch (Exception e) {
 					e.printStackTrace();
-					LOG.error(Constants.DB_ERROR_TEXT);
+					LOG.error(Constants.DB_ERROR_TEXT, e);
 					throw new RuntimeException(Constants.DB_ERROR_TEXT);
 				}
 			}
@@ -78,7 +78,7 @@ public class ResourcesController extends BaseController {
 				pager = resourcesService.selectByPager(example, getOffset()-1, getPageSize());
 			} catch (Exception e) {
 				e.printStackTrace();
-				LOG.error(Constants.DB_ERROR_TEXT);
+				LOG.error(Constants.DB_ERROR_TEXT, e);
 				throw new RuntimeException(Constants.DB_ERROR_TEXT);
 			}
 			map.put(rows, getList((List<Resources>) pager.getList()));
@@ -105,7 +105,7 @@ public class ResourcesController extends BaseController {
 			map.put(rows, setChildren(list));
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -185,7 +185,7 @@ public class ResourcesController extends BaseController {
 			resourcesService.insert(resources);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -206,7 +206,7 @@ public class ResourcesController extends BaseController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -231,7 +231,7 @@ public class ResourcesController extends BaseController {
 			roleResourcesService.deleteByExample(example);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -251,7 +251,7 @@ public class ResourcesController extends BaseController {
 			resourcesService.deleteById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 		return map;
@@ -280,7 +280,7 @@ public class ResourcesController extends BaseController {
 				roleResourcesService.saveRoleResources(roleIds[0], list);
 			} catch (Exception e) {
 				e.printStackTrace();
-				LOG.error(Constants.DB_ERROR_TEXT);
+				LOG.error(Constants.DB_ERROR_TEXT, e);
 				throw new RuntimeException(Constants.DB_ERROR_TEXT);
 			}
 		}
@@ -302,7 +302,7 @@ public class ResourcesController extends BaseController {
 			return roleResourcesService.selectByExample(example);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOG.error(Constants.DB_ERROR_TEXT);
+			LOG.error(Constants.DB_ERROR_TEXT, e);
 			throw new RuntimeException(Constants.DB_ERROR_TEXT);
 		}
 	}
